@@ -1,1610 +1,943 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BILAL ALTITI - Full Stack Developer</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #64FFDA;
-            --secondary: #F8B400;
-            --dark: #0A192F;
-            --darker: #020c1b;
-            --light: #8892B0;
-            --lighter: #CCD6F6;
-            --white: #E6F1FF;
-        }
-
-        body {
-            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
-            color: var(--lighter);
-            font-family: 'Poppins', sans-serif;
-            overflow-x: hidden;
-        }
-
-        ::selection {
-            background-color: var(--primary);
-            color: var(--dark);
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--dark);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 10px;
-        }
-
-        /* Navigation */
-        .nav-bar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(10, 25, 47, 0.85);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .nav-bar.scrolled {
-            padding: 0.7rem 5%;
-            box-shadow: 0 8px 40px rgba(100, 255, 218, 0.1);
-        }
-
-        .logo {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            text-decoration: none;
-            color: var(--white);
-            position: relative;
-        }
-
-        .logo span {
-            color: var(--primary);
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links {
-            color: var(--lighter);
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transform: translateX(-50%);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links:hover {
-            color: var(--primary);
-        }
-
-        .nav-links:hover::before {
-            width: 80%;
-        }
-
-        .menu-bar {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
-        }
-
-        .bar {
-            width: 25px;
-            height: 3px;
-            background: var(--primary);
-            border-radius: 3px;
-            transition: all 0.3s ease;
-        }
-
-        /* Hero Section */
-        .home {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 8rem 5% 4rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .home::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(100, 255, 218, 0.05) 0%, transparent 70%);
-            animation: float 20s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(50px, 50px) rotate(180deg); }
-        }
-
-        .home-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .home-content-left {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            animation: slideInLeft 1s ease-out;
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .greeting {
-            font-size: 1.2rem;
-            color: var(--primary);
-            font-weight: 500;
-        }
-
-        .name-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 4rem;
-            font-weight: 700;
-            color: var(--white);
-            line-height: 1.1;
-            margin-bottom: 1rem;
-        }
-
-        .name-title .gradient-text {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .role-text {
-            font-size: 2rem;
-            color: var(--light);
-            font-weight: 600;
-        }
-
-        .description {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--light);
-            max-width: 600px;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: var(--dark);
-            border: 2px solid var(--primary);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(100, 255, 218, 0.3);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(100, 255, 218, 0.1);
-            transform: translateY(-3px);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .social-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            background: rgba(100, 255, 218, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .social-icon:hover {
-            background: var(--primary);
-            color: var(--dark);
-            transform: translateY(-5px) rotate(5deg);
-        }
-
-        .home-content-right {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: slideInRight 1s ease-out;
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .profile-container {
-            position: relative;
-            width: 400px;
-            height: 400px;
-        }
-
-        .profile-pic {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--primary);
-            box-shadow: 0 0 50px rgba(100, 255, 218, 0.3);
-            animation: pulse 3s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                box-shadow: 0 0 50px rgba(100, 255, 218, 0.3);
-            }
-            50% {
-                box-shadow: 0 0 80px rgba(100, 255, 218, 0.5);
-            }
-        }
-
-        .profile-container::before {
-            content: '';
-            position: absolute;
-            top: -20px;
-            left: -20px;
-            right: -20px;
-            bottom: -20px;
-            border-radius: 50%;
-            border: 2px solid var(--primary);
-            opacity: 0.3;
-            animation: rotate 10s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .contact-info-home {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .contact-item-home {
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-            color: var(--lighter);
-            font-size: 0.95rem;
-        }
-
-        .contact-item-home i {
-            color: var(--primary);
-            font-size: 1.2rem;
-        }
-
-        .contact-item-home a {
-            color: var(--lighter);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .contact-item-home a:hover {
-            color: var(--primary);
-        }
-
-        /* Section Styling */
-        section {
-            padding: 6rem 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 3rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 1rem;
-            color: var(--white);
-            position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 2px;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--light);
-            font-size: 1.1rem;
-            margin-bottom: 4rem;
-        }
-
-        /* Education Section */
-        .education-container {
-            margin-top: 3rem;
-        }
-
-        .education-category {
-            margin-bottom: 4rem;
-        }
-
-        .category-title {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 2rem;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .education-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .education-card {
-            background: rgba(100, 255, 218, 0.05);
-            border: 1px solid rgba(100, 255, 218, 0.2);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .education-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 40px rgba(100, 255, 218, 0.2);
-        }
-
-        .education-level {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--white);
-            margin-bottom: 0.5rem;
-        }
-
-        .education-year {
-            color: var(--primary);
-            font-weight: 500;
-            margin-bottom: 1rem;
-        }
-
-        .education-institution {
-            color: var(--light);
-            margin-bottom: 0.5rem;
-        }
-
-        .education-location {
-            color: var(--light);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .education-percentage {
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        /* Skills Section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .skill-card {
-            background: rgba(100, 255, 218, 0.05);
-            border: 1px solid rgba(100, 255, 218, 0.2);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .skill-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 40px rgba(100, 255, 218, 0.2);
-        }
-
-        .skill-name {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--white);
-            margin-bottom: 1rem;
-        }
-
-        .progress-bar {
-            height: 8px;
-            background: rgba(100, 255, 218, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 0.5rem;
-        }
-
-        .progress {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 10px;
-            transition: width 1.5s ease;
-        }
-
-        .percentage {
-            color: var(--primary);
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        /* Projects Section */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .project-card {
-            background: linear-gradient(135deg, rgba(100, 255, 218, 0.05) 0%, rgba(248, 180, 0, 0.05) 100%);
-            border: 1px solid rgba(100, 255, 218, 0.2);
-            border-radius: 20px;
-            padding: 2rem;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(100, 255, 218, 0.1) 0%, rgba(248, 180, 0, 0.1) 100%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .project-card:hover::before {
-            opacity: 1;
-        }
-
-        .project-card:hover {
-            transform: translateY(-15px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 60px rgba(100, 255, 218, 0.3);
-        }
-
-        .project-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--white);
-            margin-bottom: 1rem;
-            position: relative;
-        }
-
-        .project-description {
-            color: var(--light);
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .tech-tag {
-            background: rgba(100, 255, 218, 0.1);
-            color: var(--primary);
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .project-links {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .project-images {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 0.5rem;
-            margin: 1rem 0;
-        }
-
-        .project-image {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 8px;
-            border: 1px solid rgba(100, 255, 218, 0.2);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .project-image:hover {
-            transform: scale(1.05);
-            border-color: var(--primary);
-        }
-
-        /* Contact Section */
-        .contact-container {
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            padding: 1.5rem;
-            background: rgba(100, 255, 218, 0.05);
-            border: 1px solid rgba(100, 255, 218, 0.2);
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .contact-item:hover {
-            background: rgba(100, 255, 218, 0.1);
-            transform: translateX(10px);
-        }
-
-        .contact-item i {
-            font-size: 1.5rem;
-            color: var(--primary);
-        }
-
-        .contact-item a {
-            color: var(--lighter);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--darker);
-            padding: 3rem 5%;
-            text-align: center;
-            border-top: 1px solid rgba(100, 255, 218, 0.1);
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .footer-text {
-            color: var(--light);
-            margin-top: 1rem;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 968px) {
-            .home-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .home-content-left {
-                align-items: center;
-            }
-
-            .description {
-                text-align: center;
-            }
-
-            .name-title {
-                font-size: 3rem;
-            }
-
-            .profile-container {
-                width: 300px;
-                height: 300px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-menu {
-                position: fixed;
-                left: -100%;
-                top: 70px;
-                flex-direction: column;
-                background: rgba(10, 25, 47, 0.98);
-                width: 100%;
-                text-align: center;
-                padding: 2rem 0;
-                transition: left 0.3s ease;
-                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            }
-
-            .nav-menu.active {
-                left: 0;
-            }
-
-            .menu-bar {
-                display: flex;
-            }
-
-            .menu-bar.active .bar:nth-child(1) {
-                transform: translateY(8px) rotate(45deg);
-            }
-
-            .menu-bar.active .bar:nth-child(2) {
-                opacity: 0;
-            }
-
-            .menu-bar.active .bar:nth-child(3) {
-                transform: translateY(-8px) rotate(-45deg);
-            }
-
-            .name-title {
-                font-size: 2.5rem;
-            }
-
-            .section-title {
-                font-size: 2.5rem;
-            }
-
-            .education-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .name-title {
-                font-size: 2rem;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-            }
-
-            .profile-container {
-                width: 250px;
-                height: 250px;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bilal Al-Titi — Cloud & DevOps Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@400;500;700;800&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Fira+Code:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#080808;
+  --bg2:#0f0f0f;
+  --bg3:#141414;
+  --bg4:#1a1a1a;
+  --border:rgba(255,255,255,0.06);
+  --border2:rgba(255,255,255,0.12);
+  --text:#f0f0f0;
+  --text2:#a0a0a0;
+  --text3:#5a5a5a;
+  --orange:#ff6b00;
+  --orange2:#ff8c3a;
+  --orange3:#ffa556;
+  --orange-glow:rgba(255,107,0,0.15);
+  --orange-glow2:rgba(255,107,0,0.06);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  overflow-x:hidden;cursor:none;
+}
+::selection{background:var(--orange);color:#000}
+::-webkit-scrollbar{width:2px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--orange)}
+
+/* CURSOR */
+#cur{position:fixed;width:8px;height:8px;background:var(--orange);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.1s,width 0.3s,height 0.3s}
+#cur-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(255,107,0,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width 0.3s,height 0.3s,border-color 0.3s}
+.hovering #cur{width:4px;height:4px}
+.hovering #cur-ring{width:52px;height:52px;border-color:var(--orange)}
+
+/* NOISE OVERLAY */
+body::before{
+  content:'';position:fixed;inset:0;z-index:1000;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:0.6;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.5rem 5%;
+  transition:all 0.4s ease;
+}
+nav.scrolled{
+  background:rgba(8,8,8,0.9);backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);padding:1rem 5%;
+}
+.logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.6rem;letter-spacing:0.08em;
+  text-decoration:none;color:var(--text);
+  display:flex;align-items:center;gap:0.5rem;
+}
+.logo-dot{width:8px;height:8px;border-radius:50%;background:var(--orange);display:inline-block;animation:logoPulse 2s ease-in-out infinite}
+@keyframes logoPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,0,0.5)}50%{box-shadow:0 0 0 6px rgba(255,107,0,0)}}
+.nav-menu{display:flex;gap:0.2rem;align-items:center}
+.nav-a{
+  text-decoration:none;color:var(--text2);font-size:0.8rem;font-weight:500;
+  letter-spacing:0.06em;text-transform:uppercase;
+  padding:0.5rem 1rem;border-radius:6px;transition:all 0.2s;
+}
+.nav-a:hover{color:var(--text);background:rgba(255,255,255,0.04)}
+.nav-hire{
+  background:var(--orange);color:#000!important;font-weight:600!important;
+  border-radius:6px;
+}
+.nav-hire:hover{background:var(--orange2)!important;transform:translateY(-1px)}
+.ham{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:none;padding:4px}
+.ham span{display:block;width:20px;height:2px;background:var(--text);transition:all 0.3s;border-radius:1px}
+
+/* HERO */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  justify-content:center;padding:8rem 5% 5rem;
+  position:relative;overflow:hidden;
+}
+/* Animated grid */
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
+  background-size:80px 80px;
+  animation:gridShift 20s linear infinite;
+}
+@keyframes gridShift{0%{transform:translateY(0)}100%{transform:translateY(80px)}}
+/* Orange spotlight */
+.hero-spot{
+  position:absolute;top:-20%;right:-10%;
+  width:800px;height:800px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(255,107,0,0.12) 0%,transparent 60%);
+  animation:spotFloat 8s ease-in-out infinite;pointer-events:none;
+}
+@keyframes spotFloat{0%,100%{transform:scale(1) translate(0,0)}50%{transform:scale(1.1) translate(-30px,30px)}}
+.hero-spot2{
+  position:absolute;bottom:-30%;left:-10%;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(255,107,0,0.06) 0%,transparent 60%);
+  animation:spotFloat 12s ease-in-out infinite reverse;pointer-events:none;
+}
+
+/* Floating terminal */
+.hero-terminal{
+  position:absolute;right:5%;top:50%;transform:translateY(-50%);
+  width:min(380px, 38vw);
+  background:var(--bg3);border:1px solid var(--border2);
+  border-radius:12px;overflow:hidden;
+  box-shadow:0 40px 80px rgba(0,0,0,0.6),0 0 0 1px rgba(255,107,0,0.1);
+  animation:termFloat 6s ease-in-out infinite;
+  display:none;
+}
+@media(min-width:1100px){.hero-terminal{display:block}}
+@keyframes termFloat{0%,100%{transform:translateY(-50%) translateY(0)}50%{transform:translateY(-50%) translateY(-12px)}}
+.term-bar{
+  display:flex;align-items:center;gap:6px;
+  padding:0.8rem 1rem;background:var(--bg4);border-bottom:1px solid var(--border);
+}
+.term-dot{width:10px;height:10px;border-radius:50%}
+.t1{background:#ff5f57}.t2{background:#ffbd2e}.t3{background:#28c840}
+.term-title{font-family:'Fira Code',monospace;font-size:0.7rem;color:var(--text3);margin-left:auto;margin-right:auto}
+.term-body{padding:1.2rem;font-family:'Fira Code',monospace;font-size:0.72rem;line-height:1.8}
+.term-line{display:flex;gap:0.5rem;align-items:flex-start;opacity:0;transform:translateY(4px);transition:all 0.4s}
+.term-line.show{opacity:1;transform:translateY(0)}
+.term-prompt{color:var(--orange);flex-shrink:0}
+.term-cmd{color:#a8ff78}
+.term-out{color:var(--text2);padding-left:1rem}
+.term-cursor{
+  display:inline-block;width:7px;height:13px;
+  background:var(--orange);margin-left:2px;
+  animation:blink 1s steps(1) infinite;vertical-align:text-bottom;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+.hero-content{position:relative;z-index:2;max-width:700px}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  background:var(--orange-glow2);border:1px solid rgba(255,107,0,0.25);
+  border-radius:100px;padding:0.4rem 1rem;
+  font-family:'Fira Code',monospace;font-size:0.7rem;color:var(--orange2);
+  letter-spacing:0.05em;margin-bottom:2rem;
+  animation:fadeUp 0.6s ease both;
+}
+.badge-blink{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:logoPulse 2s infinite}
+.hero-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(4rem,10vw,9rem);
+  line-height:0.9;letter-spacing:0.03em;color:var(--text);
+  animation:fadeUp 0.6s 0.1s ease both;
+  margin-bottom:1rem;
+}
+.hero-name .o-stroke{
+  -webkit-text-stroke:2px var(--orange);color:transparent;
+}
+.hero-role{
+  font-size:1rem;font-weight:300;color:var(--text2);
+  letter-spacing:0.04em;margin-bottom:2.5rem;
+  display:flex;align-items:center;gap:0.8rem;
+  animation:fadeUp 0.6s 0.2s ease both;
+}
+.hero-role::before{content:'';width:28px;height:1px;background:var(--orange)}
+.hero-desc{
+  font-size:1.05rem;line-height:1.8;color:var(--text2);
+  max-width:520px;margin-bottom:3rem;font-weight:300;
+  animation:fadeUp 0.6s 0.3s ease both;
+}
+.hero-desc strong{color:var(--orange);font-weight:500}
+.hero-actions{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  animation:fadeUp 0.6s 0.4s ease both;
+}
+.btn-orng{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  padding:0.85rem 1.8rem;border-radius:8px;
+  font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.88rem;
+  text-decoration:none;transition:all 0.3s;cursor:none;letter-spacing:0.02em;
+}
+.btn-fill{background:var(--orange);color:#000}
+.btn-fill:hover{background:var(--orange2);transform:translateY(-2px);box-shadow:0 10px 30px rgba(255,107,0,0.35)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border2)}
+.btn-ghost:hover{border-color:var(--orange);color:var(--orange)}
+
+/* SCROLL INDICATOR */
+.scroll-ind{
+  position:absolute;bottom:3rem;left:5%;
+  display:flex;flex-direction:column;align-items:center;gap:0.5rem;
+  font-family:'Fira Code',monospace;font-size:0.65rem;color:var(--text3);
+  letter-spacing:0.1em;animation:fadeUp 0.6s 0.6s ease both;
+}
+.scroll-line-v{width:1px;height:50px;background:linear-gradient(to bottom,var(--orange),transparent);animation:scrollDown 2s ease-in-out infinite}
+@keyframes scrollDown{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* TICKER */
+.ticker{background:var(--orange);padding:0.7rem 0;overflow:hidden}
+.ticker-track{display:flex;width:max-content;gap:0;animation:ticker 25s linear infinite}
+.ticker-item{
+  font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.12em;
+  color:#000;white-space:nowrap;padding:0 2rem;display:flex;align-items:center;gap:2rem;
+}
+.ticker-sep{width:4px;height:4px;border-radius:50%;background:rgba(0,0,0,0.3)}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* SECTIONS */
+.sec{padding:7rem 5%;max-width:1400px;margin:0 auto}
+.sec-full{padding:7rem 5%}
+.eyebrow{
+  font-family:'Fira Code',monospace;font-size:0.68rem;
+  color:var(--orange);letter-spacing:0.14em;text-transform:uppercase;
+  display:flex;align-items:center;gap:0.7rem;margin-bottom:1.2rem;
+}
+.eyebrow::before{content:'//';color:var(--text3)}
+.sec-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.5rem,5vw,5rem);
+  letter-spacing:0.03em;color:var(--text);line-height:0.95;margin-bottom:1rem;
+}
+.sec-title .dim{color:var(--text3)}
+
+/* EXPERTISE CARDS */
+.expertise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:4rem}
+.exp-card{
+  background:var(--bg2);padding:2.5rem;
+  transition:all 0.35s ease;position:relative;overflow:hidden;
+}
+.exp-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--orange-glow),transparent);
+  opacity:0;transition:opacity 0.35s;
+}
+.exp-card:hover{background:var(--bg3)}
+.exp-card:hover::before{opacity:1}
+.exp-icon{
+  width:52px;height:52px;border-radius:12px;
+  background:var(--orange-glow);border:1px solid rgba(255,107,0,0.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;color:var(--orange);margin-bottom:1.5rem;
+}
+.exp-name{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.06em;color:var(--text);margin-bottom:0.8rem}
+.exp-desc{font-size:0.87rem;line-height:1.7;color:var(--text2);font-weight:300}
+.exp-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1.2rem}
+.exp-tag{
+  font-family:'Fira Code',monospace;font-size:0.68rem;
+  padding:0.25rem 0.6rem;border-radius:4px;
+  background:rgba(255,107,0,0.08);color:var(--orange2);border:1px solid rgba(255,107,0,0.15);
+}
+
+/* PROJECTS */
+.projects-sec{background:var(--bg2);padding:7rem 5%}
+.proj-inner{max-width:1400px;margin:0 auto}
+.projects-list{margin-top:4rem;display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.proj-row{
+  display:grid;grid-template-columns:60px 1fr auto;align-items:center;
+  gap:2rem;padding:2rem 2.5rem;background:var(--bg2);
+  border-bottom:1px solid var(--border);
+  transition:all 0.35s cubic-bezier(0.16,1,0.3,1);
+  position:relative;overflow:hidden;cursor:none;
+  text-decoration:none;
+}
+.proj-row:last-child{border-bottom:none}
+.proj-row::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:0;
+  background:var(--orange);transition:width 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+.proj-row:hover{background:var(--bg3);padding-left:3rem}
+.proj-row:hover::before{width:3px}
+.proj-num{
+  font-family:'Fira Code',monospace;font-size:0.7rem;
+  color:var(--text3);letter-spacing:0.08em;text-align:center;
+}
+.proj-main{}
+.proj-row-role{
+  font-family:'Fira Code',monospace;font-size:0.68rem;
+  color:var(--orange);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.4rem;
+}
+.proj-row-name{
+  font-family:'Bebas Neue',sans-serif;font-size:1.8rem;
+  letter-spacing:0.04em;color:var(--text);line-height:1;margin-bottom:0.6rem;
+  transition:color 0.3s;
+}
+.proj-row:hover .proj-row-name{color:var(--orange)}
+.proj-row-tags{display:flex;flex-wrap:wrap;gap:0.4rem}
+.p-tag{
+  font-family:'Fira Code',monospace;font-size:0.66rem;
+  padding:0.2rem 0.5rem;border-radius:3px;
+  background:rgba(255,255,255,0.04);color:var(--text2);
+  border:1px solid var(--border);
+}
+.proj-meta{display:flex;flex-direction:column;align-items:flex-end;gap:0.8rem;flex-shrink:0}
+.proj-year{font-family:'Fira Code',monospace;font-size:0.72rem;color:var(--text3)}
+.proj-arrow{
+  width:36px;height:36px;border-radius:50%;
+  border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;
+  color:var(--text3);font-size:0.8rem;transition:all 0.35s;
+}
+.proj-row:hover .proj-arrow{background:var(--orange);border-color:var(--orange);color:#000;transform:rotate(45deg)}
+.proj-no-link .proj-arrow{opacity:0.3}
+
+/* STACK */
+.stack-sec{padding:7rem 5%}
+.stack-inner{max-width:1400px;margin:0 auto}
+.stack-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:4rem}
+.stack-card{
+  background:var(--bg2);border:1px solid var(--border);border-radius:12px;
+  padding:1.8rem;transition:all 0.3s ease;
+}
+.stack-card:hover{border-color:rgba(255,107,0,0.3);background:var(--bg3);transform:translateY(-3px)}
+.stack-card-icon{
+  font-size:1.5rem;margin-bottom:1rem;
+  display:flex;align-items:center;gap:0.5rem;
+}
+.stack-card-name{font-size:0.9rem;font-weight:600;color:var(--text);margin-bottom:0.3rem}
+.stack-card-cat{font-family:'Fira Code',monospace;font-size:0.65rem;color:var(--orange);letter-spacing:0.06em}
+
+/* ABOUT */
+.about-sec{background:var(--bg2);padding:7rem 5%}
+.about-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:6rem;align-items:center}
+.about-left{}
+.about-kpis{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:3rem}
+.kpi{
+  background:var(--bg3);border:1px solid var(--border);border-radius:10px;
+  padding:1.5rem;position:relative;overflow:hidden;
+}
+.kpi::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--orange),transparent);
+}
+.kpi-num{
+  font-family:'Bebas Neue',sans-serif;font-size:2.8rem;letter-spacing:0.04em;
+  color:var(--orange);line-height:1;margin-bottom:0.3rem;
+}
+.kpi-label{font-size:0.78rem;color:var(--text2);font-weight:400;letter-spacing:0.02em}
+.about-right{font-size:1rem;line-height:1.9;color:var(--text2);font-weight:300}
+.about-right p{margin-bottom:1.5rem}
+.about-right strong{color:var(--orange);font-weight:500}
+.about-right .highlight-box{
+  background:var(--bg3);border:1px solid var(--border);border-left:2px solid var(--orange);
+  border-radius:8px;padding:1.5rem;margin-top:2rem;
+  font-family:'Fira Code',monospace;font-size:0.8rem;line-height:1.8;color:var(--text2);
+}
+.highlight-box .hl-key{color:var(--orange2)}
+.highlight-box .hl-val{color:#a8ff78}
+.highlight-box .hl-str{color:#ffd580}
+
+/* CONTACT */
+.contact-sec{
+  padding:8rem 5%;position:relative;overflow:hidden;
+  background:var(--bg);
+}
+.contact-grid-bg{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,107,0,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,107,0,0.04) 1px,transparent 1px);
+  background-size:50px 50px;
+}
+.contact-inner{max-width:900px;margin:0 auto;position:relative;z-index:2;text-align:center}
+.contact-big{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3rem,8vw,7rem);
+  letter-spacing:0.04em;color:var(--text);line-height:0.9;
+  margin:1.5rem 0 3rem;
+}
+.contact-big .orng{color:var(--orange)}
+.contact-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:3rem;text-align:left}
+.c-card{
+  display:flex;align-items:center;gap:1.2rem;
+  padding:1.5rem;background:var(--bg2);border:1px solid var(--border);border-radius:12px;
+  text-decoration:none;transition:all 0.3s;
+}
+.c-card:hover{border-color:rgba(255,107,0,0.4);background:var(--bg3)}
+.c-icon{
+  width:42px;height:42px;border-radius:10px;flex-shrink:0;
+  background:var(--orange-glow);border:1px solid rgba(255,107,0,0.2);
+  display:flex;align-items:center;justify-content:center;color:var(--orange);
+}
+.c-lbl{font-family:'Fira Code',monospace;font-size:0.65rem;color:var(--text3);letter-spacing:0.06em;margin-bottom:0.3rem}
+.c-val{font-size:0.9rem;font-weight:500;color:var(--text)}
+.social-row{display:flex;justify-content:center;gap:0.8rem;flex-wrap:wrap}
+.soc-btn{
+  display:flex;align-items:center;gap:0.5rem;
+  padding:0.7rem 1.2rem;border-radius:8px;
+  border:1px solid var(--border2);color:var(--text2);
+  text-decoration:none;font-size:0.83rem;font-weight:500;
+  transition:all 0.25s;
+}
+.soc-btn:hover{border-color:var(--orange);color:var(--orange)}
+
+/* FOOTER */
+footer{
+  background:var(--bg);padding:2rem 5%;
+  display:flex;align-items:center;justify-content:space-between;
+  border-top:1px solid var(--border);
+}
+.foot-logo{
+  font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.1em;
+  color:var(--text3);text-decoration:none;
+}
+.foot-copy{font-family:'Fira Code',monospace;font-size:0.65rem;color:var(--text3);letter-spacing:0.04em}
+.foot-orng{color:var(--orange)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1)}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+/* EXPERIENCE & EDUCATION */
+.timeline-sec{padding:7rem 5%;background:var(--bg)}
+.timeline-inner{max-width:1400px;margin:0 auto}
+.tl-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;margin-top:4rem}
+.tl-col-title{
+  font-family:'Fira Code',monospace;font-size:0.68rem;
+  color:var(--orange);letter-spacing:0.14em;text-transform:uppercase;
+  display:flex;align-items:center;gap:0.7rem;margin-bottom:2.5rem;
+  padding-bottom:1rem;border-bottom:1px solid var(--border);
+}
+.tl-col-title::before{content:'//';color:var(--text3)}
+.tl{display:flex;flex-direction:column;gap:0;position:relative}
+.tl::before{content:'';position:absolute;left:8px;top:6px;bottom:6px;width:1px;background:var(--border)}
+.tl-item{display:flex;gap:1.5rem;padding-bottom:2.5rem;position:relative}
+.tl-item:last-child{padding-bottom:0}
+.tl-dot-wrap{flex-shrink:0;display:flex;flex-direction:column;align-items:center;padding-top:4px}
+.tl-dot{
+  width:17px;height:17px;border-radius:50%;
+  border:2px solid var(--border);background:var(--bg);
+  display:flex;align-items:center;justify-content:center;z-index:1;
+  transition:all 0.3s ease;
+}
+.tl-dot-inner{width:5px;height:5px;border-radius:50%;background:var(--text3);transition:background 0.3s}
+.tl-item:hover .tl-dot{border-color:var(--orange)}
+.tl-item:hover .tl-dot-inner{background:var(--orange)}
+.tl-body{flex:1}
+.tl-period{
+  font-family:'Fira Code',monospace;font-size:0.65rem;
+  color:var(--orange);letter-spacing:0.08em;text-transform:uppercase;
+  margin-bottom:0.35rem;display:flex;align-items:center;gap:0.5rem;
+}
+.tl-period-badge{
+  display:inline-block;padding:0.1rem 0.45rem;border-radius:3px;
+  background:rgba(255,107,0,0.1);border:1px solid rgba(255,107,0,0.2);
+  font-size:0.6rem;letter-spacing:0.05em;color:var(--orange2);
+}
+.tl-title{
+  font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:0.04em;
+  color:var(--text);line-height:1.1;margin-bottom:0.35rem;
+  transition:color 0.3s;
+}
+.tl-item:hover .tl-title{color:var(--orange)}
+.tl-org{font-size:0.82rem;color:var(--text2);font-weight:400;margin-bottom:0.7rem}
+.tl-desc{font-size:0.82rem;line-height:1.7;color:var(--text3);font-weight:300}
+.tl-tags{display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:0.7rem}
+.tl-tag{
+  font-family:'Fira Code',monospace;font-size:0.62rem;
+  padding:0.18rem 0.5rem;border-radius:3px;
+  background:rgba(255,255,255,0.03);color:var(--text3);
+  border:1px solid var(--border);
+}
+.tl-badge-cert{
+  display:inline-flex;align-items:center;gap:0.3rem;
+  font-family:'Fira Code',monospace;font-size:0.62rem;
+  padding:0.2rem 0.55rem;border-radius:3px;
+  background:rgba(0,229,160,0.07);color:#00c27a;
+  border:1px solid rgba(0,229,160,0.15);margin-top:0.6rem;
+}
+.exp-card-featured{
+  background:var(--bg3);border:1px solid rgba(255,107,0,0.2);
+  border-radius:12px;padding:1.8rem;margin-bottom:2rem;
+  position:relative;overflow:hidden;
+}
+.exp-card-featured::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--orange),transparent);
+}
+.exp-featured-badge{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  font-family:'Fira Code',monospace;font-size:0.62rem;letter-spacing:0.06em;
+  padding:0.25rem 0.6rem;border-radius:3px;
+  background:rgba(255,107,0,0.1);color:var(--orange);
+  border:1px solid rgba(255,107,0,0.2);margin-bottom:1rem;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .tl-grid{grid-template-columns:1fr;gap:3rem}
+  .nav-menu{display:none;position:fixed;inset:0;background:rgba(8,8,8,0.98);flex-direction:column;align-items:center;justify-content:center;gap:1rem;z-index:400}
+  .nav-menu.open{display:flex}
+  .ham{display:flex;z-index:600}
+  .expertise-grid{grid-template-columns:1fr;border-radius:12px}
+  .stack-grid{grid-template-columns:repeat(2,1fr)}
+  .about-inner{grid-template-columns:1fr;gap:3rem}
+  .contact-cards{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:1rem;text-align:center}
+  .proj-row{grid-template-columns:40px 1fr;gap:1rem;padding:1.5rem}
+  .proj-meta{display:none}
+}
+@media(max-width:600px){
+  .stack-grid{grid-template-columns:1fr 1fr}
+  .about-kpis{grid-template-columns:1fr 1fr}
+}
+</style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav-bar">
-        <a href="#home" class="logo">PORT<span>FOLIO</span></a>
-        <ul class="nav-menu">
-            <li><a href="#home" class="nav-links">Home</a></li>
-            <li><a href="#education" class="nav-links">Education</a></li>
-            <li><a href="#skills" class="nav-links">Skills</a></li>
-            <li><a href="#projects" class="nav-links">Projects</a></li>
-            <li><a href="#contact" class="nav-links">Contact</a></li>
-        </ul>
-        <div class="menu-bar">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#home" class="logo"><span class="logo-dot"></span>BAT.DEV</a>
+  <div class="nav-menu" id="navMenu">
+    <a href="#about" class="nav-a">About</a>
+    <a href="#expertise" class="nav-a">Expertise</a>
+    <a href="#projects" class="nav-a">Projects</a>
+    <a href="#experience" class="nav-a">Experience</a>
+    <a href="#stack" class="nav-a">Stack</a>
+    <a href="#contact" class="nav-a nav-hire">Hire Me</a>
+  </div>
+  <button class="ham" id="ham"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-spot"></div>
+  <div class="hero-spot2"></div>
+
+  <!-- Floating Terminal -->
+  <div class="hero-terminal" id="terminal">
+    <div class="term-bar">
+      <div class="term-dot t1"></div>
+      <div class="term-dot t2"></div>
+      <div class="term-dot t3"></div>
+      <div class="term-title">bilal@cloud:~</div>
+    </div>
+    <div class="term-body" id="termBody">
+      <div class="term-line" id="l1"><span class="term-prompt">$</span><span class="term-cmd"> whoami</span></div>
+      <div class="term-line" id="l2"><span class="term-out">bilal-altiti // cloud-devops-engineer</span></div>
+      <div class="term-line" id="l3"><span class="term-prompt">$</span><span class="term-cmd"> cloud --status</span></div>
+      <div class="term-line" id="l4"><span class="term-out" style="color:#a8ff78">✓ AWS: EC2, S3, CloudFront</span></div>
+      <div class="term-line" id="l5"><span class="term-out" style="color:#a8ff78">✓ Azure: VM, App Service, Blob</span></div>
+      <div class="term-line" id="l6"><span class="term-out" style="color:#a8ff78">✓ Docker: containerized</span></div>
+      <div class="term-line" id="l7"><span class="term-out" style="color:#a8ff78">✓ CI/CD: GitHub Actions</span></div>
+      <div class="term-line" id="l8"><span class="term-prompt">$</span><span class="term-cmd"> status --projects</span></div>
+      <div class="term-line" id="l9"><span class="term-out">6 production deployments active</span></div>
+      <div class="term-line" id="l10"><span class="term-prompt">$</span><span class="term-cursor"></span></div>
+    </div>
+  </div>
+
+  <div class="hero-content" style="position:relative;z-index:2">
+    <div class="hero-badge">
+      <div class="badge-blink"></div>
+      Available for opportunities
+    </div>
+    <h1 class="hero-name">
+      BILAL<br>
+      <span class="o-stroke">AL-TITI</span>
+    </h1>
+    <div class="hero-role">Cloud &amp; DevOps Engineer · Full Stack Developer</div>
+    <p class="hero-desc">
+      Designing, deploying, and managing <strong>scalable cloud-native applications</strong> on <strong>AWS &amp; Azure</strong>. From infrastructure to CI/CD pipelines — end to end.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-orng btn-fill"><i class="fas fa-paper-plane" style="font-size:0.8rem"></i> Get In Touch</a>
+      <a href="#projects" class="btn-orng btn-ghost">View Projects</a>
+      <a href="./Asserts/Bilal Al-Titi.cv.pdf" download class="btn-orng btn-ghost"><i class="fas fa-download" style="font-size:0.8rem"></i> Resume</a>
+    </div>
+  </div>
+
+  <div class="scroll-ind">
+    <div class="scroll-line-v"></div>
+    <span>SCROLL</span>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ticker-item">AWS<div class="ticker-sep"></div>Azure<div class="ticker-sep"></div>Docker<div class="ticker-sep"></div>CI/CD<div class="ticker-sep"></div>GitHub Actions<div class="ticker-sep"></div>EC2<div class="ticker-sep"></div>S3<div class="ticker-sep"></div>CloudFront<div class="ticker-sep"></div>App Service<div class="ticker-sep"></div>Blob Storage<div class="ticker-sep"></div>ASP.NET Core<div class="ticker-sep"></div>React<div class="ticker-sep"></div>Next.js<div class="ticker-sep"></div>React Native<div class="ticker-sep"></div>Laravel<div class="ticker-sep"></div>Vue.js</div>
+    <div class="ticker-item">AWS<div class="ticker-sep"></div>Azure<div class="ticker-sep"></div>Docker<div class="ticker-sep"></div>CI/CD<div class="ticker-sep"></div>GitHub Actions<div class="ticker-sep"></div>EC2<div class="ticker-sep"></div>S3<div class="ticker-sep"></div>CloudFront<div class="ticker-sep"></div>App Service<div class="ticker-sep"></div>Blob Storage<div class="ticker-sep"></div>ASP.NET Core<div class="ticker-sep"></div>React<div class="ticker-sep"></div>Next.js<div class="ticker-sep"></div>React Native<div class="ticker-sep"></div>Laravel<div class="ticker-sep"></div>Vue.js</div>
+  </div>
+</div>
+
+<!-- EXPERTISE -->
+<section id="expertise" class="sec reveal">
+  <div class="eyebrow">Specializations</div>
+  <h2 class="sec-title">What I <span class="dim">do</span></h2>
+  <div class="expertise-grid">
+    <div class="exp-card">
+      <div class="exp-icon"><i class="fab fa-aws"></i></div>
+      <div class="exp-name">AWS Engineering</div>
+      <div class="exp-desc">Deploying production applications on Ubuntu EC2 instances. Managing S3 storage, CloudFront CDN distribution, with focus on performance, security, and cost optimization.</div>
+      <div class="exp-tags">
+        <span class="exp-tag">EC2</span>
+        <span class="exp-tag">S3</span>
+        <span class="exp-tag">CloudFront</span>
+        <span class="exp-tag">Ubuntu Server</span>
+      </div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-icon"><i class="fab fa-microsoft"></i></div>
+      <div class="exp-name">Azure Engineering</div>
+      <div class="exp-desc">Building and managing production-ready systems using Virtual Machines (Windows & Ubuntu), App Services, Blob Storage, and core Azure services.</div>
+      <div class="exp-tags">
+        <span class="exp-tag">Azure VM</span>
+        <span class="exp-tag">App Service</span>
+        <span class="exp-tag">Blob Storage</span>
+        <span class="exp-tag">Azure DevOps</span>
+      </div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-icon"><i class="fab fa-docker"></i></div>
+      <div class="exp-name">Containers & CI/CD</div>
+      <div class="exp-desc">Containerizing applications with Docker and implementing automated CI/CD pipelines using GitHub Actions to streamline build, test, and deployment workflows.</div>
+      <div class="exp-tags">
+        <span class="exp-tag">Docker</span>
+        <span class="exp-tag">GitHub Actions</span>
+        <span class="exp-tag">Pipelines</span>
+        <span class="exp-tag">Automation</span>
+      </div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-icon"><i class="fas fa-server"></i></div>
+      <div class="exp-name">Backend Development</div>
+      <div class="exp-desc">Building scalable RESTful APIs and backend systems with ASP.NET Core and C#. Microservices architecture, authentication, and SQL Server database management.</div>
+      <div class="exp-tags">
+        <span class="exp-tag">ASP.NET Core</span>
+        <span class="exp-tag">C#</span>
+        <span class="exp-tag">RESTful API</span>
+        <span class="exp-tag">SQL Server</span>
+      </div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-icon"><i class="fas fa-code"></i></div>
+      <div class="exp-name">Full Stack Development</div>
+      <div class="exp-desc">Delivering complete, mobile-responsive web applications combining modern frontend frameworks with robust backend systems — optimized for user experience and performance.</div>
+      <div class="exp-tags">
+        <span class="exp-tag">React</span>
+        <span class="exp-tag">Next.js</span>
+        <span class="exp-tag">Vue.js</span>
+        <span class="exp-tag">React Native</span>
+      </div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-icon"><i class="fas fa-shield-alt"></i></div>
+      <div class="exp-name">Security & Optimization</div>
+      <div class="exp-desc">Implementing authentication & authorization layers, SSL/TLS configurations, security hardening on cloud infrastructure, and continuous cost optimization across cloud environments.</div>
+      <div class="exp-tags">
+        <span class="exp-tag">JWT / OAuth</span>
+        <span class="exp-tag">SSL/TLS</span>
+        <span class="exp-tag">Cost Optimization</span>
+        <span class="exp-tag">Monitoring</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<div id="projects" class="projects-sec reveal">
+  <div class="proj-inner">
+    <div class="eyebrow">Production Deployments</div>
+    <h2 class="sec-title">Real-world <span class="dim">projects</span></h2>
+    <div class="projects-list">
+
+      <a href="https://cashtics.com/" target="_blank" class="proj-row">
+        <div class="proj-num">01</div>
+        <div class="proj-main">
+          <div class="proj-row-role">DevOps Engineer (AWS)</div>
+          <div class="proj-row-name">Cashtics</div>
+          <div class="proj-row-tags">
+            <span class="p-tag">Laravel</span>
+            <span class="p-tag">Vue.js</span>
+            <span class="p-tag">AWS</span>
+            <span class="p-tag">S3</span>
+            <span class="p-tag">CloudFront</span>
+            <span class="p-tag">EC2</span>
+          </div>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="home">
-        <div class="home-container">
-            <div class="home-content-left">
-                <div class="greeting">Hi, my name is</div>
-                <h1 class="name-title">
-                    <span class="gradient-text">BILAL ALTITI</span>
-                </h1>
-                <h2 class="role-text">Full Stack Developer</h2>
-                <p class="description">
-                    Full Stack .NET Developer with expertise in architecting and developing scalable, high-performance web applications using ASP.NET Core, C#, and SQL Server. Experienced in microservices architecture and GitHub Actions. Proficient in authentication & authorization.
-                </p>
-                <div class="contact-info-home">
-                    <div class="contact-item-home">
-                        <i class="fa-solid fa-envelope"></i>
-                        <a href="mailto:bilalaltiti@hotmail.com">bilalaltiti@hotmail.com</a>
-                    </div>
-                    <div class="contact-item-home">
-                        <i class="fa-solid fa-phone"></i>
-                        <a href="tel:+962785439994">+962 785 439 994</a>
-                    </div>
-                </div>
-                <div class="cta-buttons">
-                    <a href="./Asserts/Bilal Al-Titi.cv.pdf" download class="btn btn-primary">
-                        <i class="fas fa-download"></i> Download Resume
-                    </a>
-                    <a href="#contact" class="btn btn-secondary">
-                        <i class="fas fa-envelope"></i> Get In Touch
-                    </a>
-                </div>
-                <div class="social-links">
-                    <a href="https://github.com/BILALTITI" target="_blank" class="social-icon" title="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/bilalaltiti/" target="_blank" class="social-icon" title="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="mailto:bilalaltiti@hotmail.com" class="social-icon" title="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="home-content-right">
-                <div class="profile-container">
-                    <img src="./Asserts/bilal.jpg" alt="Bilal Altiti" class="profile-pic">
-                </div>
-            </div>
+        <div class="proj-meta">
+          <div class="proj-year">2025</div>
+          <div class="proj-arrow"><i class="fas fa-arrow-right"></i></div>
         </div>
-    </section>
+      </a>
 
-    <!-- Education Section -->
-    <section id="education">
-        <h2 class="section-title">Education Journey</h2>
-        <p class="section-subtitle">My learning path and academic achievements</p>
-        
-        <div class="education-container">
-            <!-- Backend Development -->
-            <div class="education-category">
-                <h3 class="category-title">Backend Development</h3>
-                <div class="education-grid">
-                    <div class="education-card">
-                        <div class="education-level">Level 1 - Foundations, Algorithms, C++</div>
-                        <div class="education-year">2022-2023</div>
-                        <div class="education-institution">Various Courses</div>
-                        <div class="education-location">Online Learning</div>
-                        <div class="education-percentage">Certificate Obtained</div>
-                        <a href="https://github.com/BILALTITI/Courses-certificate/tree/main/Level%20one" target="_blank" class="btn btn-secondary">View Certificate</a>
-                    </div>
-
-                    <div class="education-card">
-                        <div class="education-level">Level 2 - Advanced Algorithms, C++ Level 2</div>
-                        <div class="education-year">2022-2023</div>
-                        <div class="education-institution">Various Institutions</div>
-                        <div class="education-location">Online Learning</div>
-                        <div class="education-percentage">Certificate Obtained</div>
-                        <a href="https://github.com/BILALTITI/Courses-certificate/tree/main/Level%202" target="_blank" class="btn btn-secondary">View Certificate</a>
-                    </div>
-
-                    <div class="education-card">
-                        <div class="education-level">Level 3 - Algorithms Level 4, Foundations Level 2</div>
-                        <div class="education-year">2022-2023</div>
-                        <div class="education-institution">Various Institutions</div>
-                        <div class="education-location">Online Learning</div>
-                        <div class="education-percentage">Certificate Obtained</div>
-                        <a href="https://github.com/BILALTITI/Courses-certificate/tree/main/Level%20Three" target="_blank" class="btn btn-secondary">View Certificate</a>
-                    </div>
-
-                    <div class="education-card">
-                        <div class="education-level">Level 4 - OOP, Data Structures</div>
-                        <div class="education-year">2023</div>
-                        <div class="education-institution">Various Institutions</div>
-                        <div class="education-location">Online Learning</div>
-                        <div class="education-percentage">Certificate Obtained</div>
-                        <a href="https://github.com/BILALTITI/Courses-certificate/tree/main/level%20four" target="_blank" class="btn btn-secondary">View Certificate</a>
-                    </div>
-
-                    <div class="education-card">
-                        <div class="education-level">Level 5 - C#, SQL, Data Structures Level 2</div>
-                        <div class="education-year">2023-2024</div>
-                        <div class="education-institution">Various Institutions</div>
-                        <div class="education-location">Online Learning</div>
-                        <div class="education-percentage">Certificate Obtained</div>
-                        <a href="https://github.com/BILALTITI/Courses-certificate/tree/main/Level%20five" target="_blank" class="btn btn-secondary">View Certificate</a>
-                    </div>
-
-                    <div class="education-card">
-                        <div class="education-level">Level 6 - Windows Services, RESTful API</div>
-                        <div class="education-year">2024</div>
-                        <div class="education-institution">Various Institutions</div>
-                        <div class="education-location">Online Learning</div>
-                        <div class="education-percentage">Certificate Obtained</div>
-                        <a href="https://github.com/BILALTITI/Courses-certificate/tree/main/Level%20six" target="_blank" class="btn btn-secondary">View Certificate</a>
-                    </div>
-
-                    <div class="education-card">
-                        <div class="education-level">Level 7 - ASP.NET Core, MVC, EF Core, LINQ</div>
-                        <div class="education-year">2025</div>
-                        <div class="education-institution">Various Institutions</div>
-                        <div class="education-location">Online Learning (ITI Training)</div>
-                        <div class="education-percentage">Certificate Obtained</div>
-                        <a href="https://github.com/BILALTITI/Courses-certificate/tree/main/Level%20six" target="_blank" class="btn btn-secondary">View Certificate</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Frontend Development -->
-            <div class="education-category">
-                <h3 class="category-title">Frontend Development</h3>
-                <div class="education-grid">
-                    <div class="education-card">
-                        <div class="education-level">HTML, CSS, JS, Git, React</div>
-                        <div class="education-year">2024-Present</div>
-                        <div class="education-institution">Various Courses</div>
-                        <div class="education-location">Online Learning</div>
-                        <div class="education-percentage">Certificate Obtained</div>
-                    </div>
-
-                    <div class="education-card">
-                        <div class="education-level">Bootstrap, Tailwind CSS, View Pages</div>
-                        <div class="education-year">2025-Present</div>
-                        <div class="education-institution">Various Courses</div>
-                        <div class="education-location">Online Learning</div>
-                        <div class="education-percentage">Certificate Obtained</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Bachelor's Degree -->
-            <div class="education-category">
-                <h3 class="category-title">Bachelor's Degree</h3>
-                <div class="education-grid">
-                    <div class="education-card">
-                        <div class="education-level">Bachelor of English Language And Translation</div>
-                        <div class="education-year">2019-2022</div>
-                        <div class="education-institution">Jerash University</div>
-                        <div class="education-location">Jordan, Jerash</div>
-                        <div class="education-percentage">Percentage: 85.5%</div>
-                    </div>
-                </div>
-            </div>
+      <a href="https://sooquk.com/" target="_blank" class="proj-row">
+        <div class="proj-num">02</div>
+        <div class="proj-main">
+          <div class="proj-row-role">Backend & DevOps Engineer</div>
+          <div class="proj-row-name">Sooquk</div>
+          <div class="proj-row-tags">
+            <span class="p-tag">ASP.NET Core</span>
+            <span class="p-tag">Next.js</span>
+            <span class="p-tag">React Native</span>
+            <span class="p-tag">CI/CD</span>
+          </div>
         </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills">
-        <h2 class="section-title">Skills & Technologies</h2>
-        <p class="section-subtitle">Tools and technologies I work with</p>
-        <div class="skills-grid">
-            <div class="skill-card">
-                <div class="skill-name">C#</div>
-                <div class="progress-bar">
-                    <div class="progress" style="width: 85%"></div>
-                </div>
-                <div class="percentage">85%</div>
-            </div>
-            <div class="skill-card">
-                <div class="skill-name">HTML</div>
-                <div class="progress-bar">
-                    <div class="progress" style="width: 85%"></div>
-                </div>
-                <div class="percentage">85%</div>
-            </div>
-            <div class="skill-card">
-                <div class="skill-name">CSS</div>
-                <div class="progress-bar">
-                    <div class="progress" style="width: 85%"></div>
-                </div>
-                <div class="percentage">85%</div>
-            </div>
-            <div class="skill-card">
-                <div class="skill-name">JavaScript</div>
-                <div class="progress-bar">
-                    <div class="progress" style="width: 85%"></div>
-                </div>
-                <div class="percentage">85%</div>
-            </div>
-            <div class="skill-card">
-                <div class="skill-name">TypeScript</div>
-                <div class="progress-bar">
-                    <div class="progress" style="width: 85%"></div>
-                </div>
-                <div class="percentage">85%</div>
-            </div>
-            <div class="skill-card">
-                <div class="skill-name">MySQL</div>
-                <div class="progress-bar">
-                    <div class="progress" style="width: 85%"></div>
-                </div>
-                <div class="percentage">85%</div>
-            </div>
-            <div class="skill-card">
-                <div class="skill-name">Git</div>
-                <div class="progress-bar">
-                    <div class="progress" style="width: 85%"></div>
-                </div>
-                <div class="percentage">85%</div>
-            </div>
-            <div class="skill-card">
-                <div class="skill-name">GitHub</div>
-                <div class="progress-bar">
-                    <div class="progress" style="width: 85%"></div>
-                </div>
-                <div class="percentage">85%</div>
-            </div>
-            <div class="skill-card">
-                <div class="skill-name">RESTful API</div>
-                <div class="progress-bar">
-                    <div class="progress" style="width: 85%"></div>
-                </div>
-                <div class="percentage">85%</div>
-            </div>
-            <div class="skill-card">
-                <div class="skill-name">jQuery</div>
-                <div class="progress-bar">
-                    <div class="progress" style="width: 85%"></div>
-                </div>
-                <div class="percentage">85%</div>
-            </div>
+        <div class="proj-meta">
+          <div class="proj-year">2025</div>
+          <div class="proj-arrow"><i class="fas fa-arrow-right"></i></div>
         </div>
-    </section>
+      </a>
 
-    <!-- Projects Section -->
-    <section id="projects">
-        <h2 class="section-title">Featured Projects</h2>
-        <p class="section-subtitle">Some things I've built</p>
-        <div class="projects-grid">
-            <!-- ILern Learning Platform -->
-            <div class="project-card">
-                <h3 class="project-title">ILern Learning Platform</h3>
-                <p class="project-description">
-                    A comprehensive online learning platform designed to bridge the gap between learners and educational content. The app empowers users to enroll in courses, access structured learning materials, and monitor their educational progress. It also offers administrative tools for content management, user roles, and performance tracking.
-                </p>
-                <div class="project-tech">
-                    <span class="tech-tag">ASP.NET MVC</span>
-                    <span class="tech-tag">SQL Server</span>
-                    <span class="tech-tag">EF Core</span>
-                    <span class="tech-tag">Bootstrap</span>
-                    <span class="tech-tag">jQuery</span>
-                </div>
-                <div class="project-images">
-                    <img src="./Asserts/Screenshot 2025-04-14 223748.png" alt="ILern Screenshot 1" class="project-image">
-                    <img src="./Asserts/Screenshot 2025-04-14 223818.png" alt="ILern Screenshot 2" class="project-image">
-                    <img src="./Asserts/Screenshot 2025-04-14 223902.png" alt="ILern Screenshot 3" class="project-image">
-                    <img src="./Asserts/Screenshot 2025-04-14 223924.png" alt="ILern Screenshot 4" class="project-image">
-                    <img src="./Asserts/Screenshot 2025-04-14 223950.png" alt="ILern Screenshot 5" class="project-image">
-                    <img src="./Asserts/Screenshot 2025-04-14 224021.png" alt="ILern Screenshot 6" class="project-image">
-                </div>
-                <div class="project-links">
-                    <a href="https://github.com/BILALTITI/ILERN" target="_blank" class="btn btn-secondary">
-                        <i class="fab fa-github"></i> View Code
-                    </a>
-                </div>
-            </div>
-
-            <!-- Beta Social Media -->
-            <div class="project-card">
-                <h3 class="project-title">Beta Social Media App</h3>
-                <p class="project-description">
-                    A user-friendly social media platform with features like adding, editing, and deleting posts, writing comments, and managing user authentication. Users can register, log in, and personalize their profiles. Posts can include text, images, or videos, with options to edit or delete by the creator.
-                </p>
-                <div class="project-tech">
-                    <span class="tech-tag">HTML</span>
-                    <span class="tech-tag">CSS</span>
-                    <span class="tech-tag">JavaScript</span>
-                    <span class="tech-tag">Bootstrap</span>
-                </div>
-                <div class="project-images">
-                    <img src="./Asserts/beta 4 (1).png" alt="Beta Social Media 1" class="project-image">
-                    <img src="./Asserts/beta 3.png" alt="Beta Social Media 2" class="project-image">
-                    <img src="./Asserts/beta 2.png" alt="Beta Social Media 3" class="project-image">
-                    <img src="./Asserts/beta 1.png" alt="Beta Social Media 4" class="project-image">
-                </div>
-                <div class="project-links">
-                    <a href="https://sweet-panda-d8f358.netlify.app/" target="_blank" class="btn btn-primary">
-                        <i class="fas fa-external-link-alt"></i> Live Demo
-                    </a>
-                    <a href="https://github.com/BILALTITI/Beta-Project-" target="_blank" class="btn btn-secondary">
-                        <i class="fab fa-github"></i> Code
-                    </a>
-                </div>
-            </div>
-
-            <!-- ToDos List App -->
-            <div class="project-card">
-                <h3 class="project-title">ToDos List App</h3>
-                <p class="project-description">
-                    A web application for task management and organization, allowing users to efficiently manage their tasks with features for adding, updating, deleting, and sorting tasks with a modern Material-UI interface.
-                </p>
-                <div class="project-tech">
-                    <span class="tech-tag">React</span>
-                    <span class="tech-tag">Material-UI</span>
-                    <span class="tech-tag">JavaScript</span>
-                </div>
-                <div class="project-images">
-                    <img src="./Asserts/screenshot 2024-12-29 054332 (1).png" alt="ToDos List 1" class="project-image">
-                    <img src="./Asserts/to dos 2 (1).png" alt="ToDos List 2" class="project-image">
-                    <img src="./Asserts/to dos3 (1).png" alt="ToDos List 3" class="project-image">
-                </div>
-                <div class="project-links">
-                    <a href="https://resonant-shortbread-7ab3b4.netlify.app/" target="_blank" class="btn btn-primary">
-                        <i class="fas fa-external-link-alt"></i> Live Demo
-                    </a>
-                    <a href="https://github.com/BILALTITI/ToDosList-App" target="_blank" class="btn btn-secondary">
-                        <i class="fab fa-github"></i> Code
-                    </a>
-                </div>
-            </div>
-
-            <!-- Weather App -->
-            <div class="project-card">
-                <h3 class="project-title">Weather App</h3>
-                <p class="project-description">
-                    A web application that provides real-time weather updates based on the user's current location, displaying the weather status for today. The app shows key details like temperature, humidity, and weather conditions for the day.
-                </p>
-                <div class="project-tech">
-                    <span class="tech-tag">React</span>
-                    <span class="tech-tag">Material-UI</span>
-                    <span class="tech-tag">Weather API</span>
-                </div>
-                <div class="project-images">
-                    <img src="./Asserts/screenshot 2024-12-29 052744 (1).png" alt="Weather App 1" class="project-image">
-                    <img src="./Asserts/Screenshot 2025-04-15 183920.png" alt="Weather App 2" class="project-image">
-                </div>
-                <div class="project-links">
-                    <a href="https://elaborate-queijadas-9968a0.netlify.app/" target="_blank" class="btn btn-primary">
-                        <i class="fas fa-external-link-alt"></i> Live Demo
-                    </a>
-                    <a href="https://github.com/BILALTITI/Weather-App" target="_blank" class="btn btn-secondary">
-                        <i class="fab fa-github"></i> Code
-                    </a>
-                </div>
-            </div>
-
-            <!-- Prayer Times App -->
-            <div class="project-card">
-                <h3 class="project-title">Prayer Times App</h3>
-                <p class="project-description">
-                    This web application provides accurate and real-time prayer times for 11 major cities in Jordan. It fetches data from a reliable prayer time API and ensures a seamless user experience.
-                </p>
-                <div class="project-tech">
-                    <span class="tech-tag">HTML</span>
-                    <span class="tech-tag">CSS</span>
-                    <span class="tech-tag">JavaScript</span>
-                </div>
-                <div class="project-images">
-                    <img src="./Asserts/pray times 1.png" alt="Prayer Times 1" class="project-image">
-                    <img src="./Asserts/prayers times 2 (1).png" alt="Prayer Times 2" class="project-image">
-                    <img src="./Asserts/prayers time 3 (1).png" alt="Prayer Times 3" class="project-image">
-                    <img src="./Asserts/prayers time 4 (1).png" alt="Prayer Times 4" class="project-image">
-                </div>
-                <div class="project-links">
-                    <a href="https://voluble-klepon-e8fcca.netlify.app/" target="_blank" class="btn btn-primary">
-                        <i class="fas fa-external-link-alt"></i> Live Demo
-                    </a>
-                    <a href="https://github.com/BILALTITI/Prayers-Times" target="_blank" class="btn btn-secondary">
-                        <i class="fab fa-github"></i> Code
-                    </a>
-                </div>
-            </div>
-
-            <!-- Master Project -->
-            <div class="project-card">
-                <h3 class="project-title">Master Project</h3>
-                <p class="project-description">
-                    A comprehensive showcase of advanced front-end development skills, designed to highlight expertise in creating dynamic, user-friendly, and responsive web applications with modern design principles.
-                </p>
-                <div class="project-tech">
-                    <span class="tech-tag">HTML</span>
-                    <span class="tech-tag">CSS</span>
-                </div>
-                <div class="project-images">
-                    <img src="./Asserts/Master 1.png" alt="Master Project 1" class="project-image">
-                    <img src="./Asserts/Master 2.png" alt="Master Project 2" class="project-image">
-                    <img src="./Asserts/Master 3.png" alt="Master Project 3" class="project-image">
-                    <img src="./Asserts/Master 4.png" alt="Master Project 4" class="project-image">
-                </div>
-                <div class="project-links">
-                    <a href="https://regal-dasik-2ab179.netlify.app/" target="_blank" class="btn btn-primary">
-                        <i class="fas fa-external-link-alt"></i> Live Demo
-                    </a>
-                    <a href="https://github.com/BILALTITI/Master-progect" target="_blank" class="btn btn-secondary">
-                        <i class="fab fa-github"></i> Code
-                    </a>
-                </div>
-            </div>
-
-            <!-- WebMosaic Project -->
-            <div class="project-card">
-                <h3 class="project-title">WebMosaic Project</h3>
-                <p class="project-description">
-                    An immersive and visually stunning front-end project designed to showcase the art of web development through creative page layouts, dynamic content, and smooth graphic animations.
-                </p>
-                <div class="project-tech">
-                    <span class="tech-tag">HTML</span>
-                    <span class="tech-tag">CSS</span>
-                </div>
-                <div class="project-images">
-                    <img src="./Asserts/full 5.png" alt="WebMosaic 1" class="project-image">
-                    <img src="./Asserts/full 6.png" alt="WebMosaic 2" class="project-image">
-                    <img src="./Asserts/full 7.png" alt="WebMosaic 3" class="project-image">
-                    <img src="./Asserts/full 8 .png" alt="WebMosaic 4" class="project-image">
-                </div>
-                <div class="project-links">
-                    <a href="https://teal-kringle-1b1a2f.netlify.app/" target="_blank" class="btn btn-primary">
-                        <i class="fas fa-external-link-alt"></i> Live Demo
-                    </a>
-                    <a href="https://github.com/BILALTITI/Full-Project-" target="_blank" class="btn btn-secondary">
-                        <i class="fab fa-github"></i> Code
-                    </a>
-                </div>
-            </div>
-
-            <!-- Kasper Project -->
-            <div class="project-card">
-                <h3 class="project-title">Kasper Project</h3>
-                <p class="project-description">
-                    A cutting-edge front-end project that embodies creativity, innovation, and elegance. Designed to deliver a seamless and captivating user experience with modern web development techniques.
-                </p>
-                <div class="project-tech">
-                    <span class="tech-tag">HTML</span>
-                    <span class="tech-tag">CSS</span>
-                </div>
-                <div class="project-images">
-                    <img src="./Asserts/kasper 1.png" alt="Kasper 1" class="project-image">
-                    <img src="./Asserts/kasper 2.png" alt="Kasper 2" class="project-image">
-                    <img src="./Asserts/kasper 3.png" alt="Kasper 3" class="project-image">
-                    <img src="./Asserts/kasper 4.png" alt="Kasper 4" class="project-image">
-                </div>
-                <div class="project-links">
-                    <a href="https://capable-dragon-40097c.netlify.app/" target="_blank" class="btn btn-primary">
-                        <i class="fas fa-external-link-alt"></i> Live Demo
-                    </a>
-                    <a href="https://github.com/BILALTITI/Kasper-project" target="_blank" class="btn btn-secondary">
-                        <i class="fab fa-github"></i> Code
-                    </a>
-                </div>
-            </div>
-
-            <!-- Leon Project -->
-            <div class="project-card">
-                <h3 class="project-title">Leon Project</h3>
-                <p class="project-description">
-                    A bold and futuristic front-end project designed to exemplify precision, innovation, and functionality. With its sleek design and cutting-edge technologies, Leon delivers a seamless, high-performance user experience.
-                </p>
-                <div class="project-tech">
-                    <span class="tech-tag">HTML</span>
-                    <span class="tech-tag">CSS</span>
-                </div>
-                <div class="project-images">
-                    <img src="./Asserts/Leon 1.png" alt="Leon 1" class="project-image">
-                    <img src="./Asserts/Leon 2.png" alt="Leon 2" class="project-image">
-                    <img src="./Asserts/Leon 3.png" alt="Leon 3" class="project-image">
-                    <img src="./Asserts/leon 4.png" alt="Leon 4" class="project-image">
-                </div>
-                <div class="project-links">
-                    <a href="https://sweet-panda-d8f358.netlify.app/" target="_blank" class="btn btn-primary">
-                        <i class="fas fa-external-link-alt"></i> Live Demo
-                    </a>
-                    <a href="https://github.com/BILALTITI/Leon-project" target="_blank" class="btn btn-secondary">
-                        <i class="fab fa-github"></i> Code
-                    </a>
-                </div>
-            </div>
-
-            <!-- Clinic Management System -->
-            <div class="project-card">
-                <h3 class="project-title">Clinic Management System</h3>
-                <p class="project-description">
-                    A comprehensive desktop application designed to streamline healthcare operations by efficiently managing patients, doctors, staff, and appointment schedules. Suitable for clinics, hospitals, and private practices.
-                </p>
-                <div class="project-tech">
-                    <span class="tech-tag">C#</span>
-                    <span class="tech-tag">.NET Framework</span>
-                    <span class="tech-tag">SQL Server</span>
-                    <span class="tech-tag">T-SQL</span>
-                </div>
-                <div class="project-images">
-                    <img src="./Asserts/CMS 1.png" alt="CMS 1" class="project-image">
-                    <img src="./Asserts/cms 2.png" alt="CMS 2" class="project-image">
-                    <img src="./Asserts/cms 3.png" alt="CMS 3" class="project-image">
-                    <img src="./Asserts/CMS4.png" alt="CMS 4" class="project-image">
-                </div>
-                <div class="project-links">
-                    <a href="https://github.com/BILALTITI/CMS" target="_blank" class="btn btn-secondary">
-                        <i class="fab fa-github"></i> View Code
-                    </a>
-                </div>
-            </div>
-
-            <!-- Library Management System -->
-            <div class="project-card">
-                <h3 class="project-title">Library Management System</h3>
-                <p class="project-description">
-                    A desktop application designed to simplify library management processes by handling book inventory, staff roles, and book reservations efficiently. Provides a robust platform for managing resources and automating tasks.
-                </p>
-                <div class="project-tech">
-                    <span class="tech-tag">C#</span>
-                    <span class="tech-tag">.NET Framework</span>
-                    <span class="tech-tag">SQL Server</span>
-                    <span class="tech-tag">T-SQL</span>
-                </div>
-                <div class="project-images">
-                    <img src="./Asserts/LMS 1.png" alt="LMS 1" class="project-image">
-                    <img src="./Asserts/lms5.png" alt="LMS 2" class="project-image">
-                    <img src="./Asserts/lms 2.png" alt="LMS 3" class="project-image">
-                    <img src="./Asserts/LMS 4.png" alt="LMS 4" class="project-image">
-                </div>
-                <div class="project-links">
-                    <a href="https://github.com/BILALTITI/LMS" target="_blank" class="btn btn-secondary">
-                        <i class="fab fa-github"></i> View Code
-                    </a>
-                </div>
-            </div>
-
-            <!-- Bank Management System -->
-            <div class="project-card">
-                <h3 class="project-title">Bank Management System</h3>
-                <p class="project-description">
-                    A desktop application designed to streamline financial operations by managing withdrawals, deposits, and transfers between accounts. Ideal for banks, credit unions, or organizations handling multiple accounts.
-                </p>
-                <div class="project-tech">
-                    <span class="tech-tag">C#</span>
-                    <span class="tech-tag">.NET Framework</span>
-                    <span class="tech-tag">SQL Server</span>
-                    <span class="tech-tag">T-SQL</span>
-                </div>
-                <div class="project-images">
-                    <img src="./Asserts/bank 2 (1).jpeg" alt="Bank 1" class="project-image">
-                    <img src="./Asserts/bank 3 (1).jpeg" alt="Bank 2" class="project-image">
-                    <img src="./Asserts/bank4 (1).jpeg" alt="Bank 3" class="project-image">
-                    <img src="./Asserts/bank 5.jpeg" alt="Bank 4" class="project-image">
-                </div>
-                <div class="project-links">
-                    <a href="https://github.com/BILALTITI/BMS" target="_blank" class="btn btn-secondary">
-                        <i class="fab fa-github"></i> View Code
-                    </a>
-                </div>
-            </div>
-
-            <!-- Driving License Management System -->
-            <div class="project-card">
-                <h3 class="project-title">Driving License Management System</h3>
-                <p class="project-description">
-                    A comprehensive desktop application designed to manage licensing, conduct exams, and implement intricate decision-making logic. Ideal for government organizations or agencies responsible for issuing licenses.
-                </p>
-                <div class="project-tech">
-                    <span class="tech-tag">C#</span>
-                    <span class="tech-tag">.NET Framework</span>
-                    <span class="tech-tag">SQL Server</span>
-                    <span class="tech-tag">T-SQL</span>
-                </div>
-                <div class="project-images">
-                    <img src="./Asserts/DVLD 1.jpeg" alt="DVLD 1" class="project-image">
-                    <img src="./Asserts/DVLD 2.jpeg" alt="DVLD 2" class="project-image">
-                    <img src="./Asserts/DVLD 4jpeg.jpeg" alt="DVLD 3" class="project-image">
-                    <img src="./Asserts/DVLD 5.jpeg" alt="DVLD 4" class="project-image">
-                </div>
-                <div class="project-links">
-                    <a href="https://github.com/BILALTITI/DVLD" target="_blank" class="btn btn-secondary">
-                        <i class="fab fa-github"></i> View Code
-                    </a>
-                </div>
-            </div>
+      <a href="https://okalforheroes.com/" target="_blank" class="proj-row">
+        <div class="proj-num">03</div>
+        <div class="proj-main">
+          <div class="proj-row-role">Full Stack & DevOps Engineer</div>
+          <div class="proj-row-name">Okal For Heroes</div>
+          <div class="proj-row-tags">
+            <span class="p-tag">ASP.NET MVC</span>
+            <span class="p-tag">UX Design</span>
+            <span class="p-tag">Hosting</span>
+            <span class="p-tag">Responsive</span>
+          </div>
         </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact">
-        <h2 class="section-title">Get In Touch</h2>
-        <p class="section-subtitle">Let's work together on your next project</p>
-        <div class="contact-container">
-            <div class="contact-info">
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <a href="mailto:bilalaltiti@hotmail.com">bilalaltiti@hotmail.com</a>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <a href="tel:+962785439994">+962 785 439 994</a>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>Amman, Jordan</span>
-                </div>
-            </div>
-            <div class="social-links" style="justify-content: center; margin-top: 3rem;">
-                <a href="https://github.com/BILALTITI" target="_blank" class="social-icon">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/bilalaltiti/" target="_blank" class="social-icon">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="mailto:bilalaltiti@hotmail.com" class="social-icon">
-                    <i class="fas fa-envelope"></i>
-                </a>
-            </div>
+        <div class="proj-meta">
+          <div class="proj-year">2026</div>
+          <div class="proj-arrow"><i class="fas fa-arrow-right"></i></div>
         </div>
-    </section>
+      </a>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="social-links" style="justify-content: center;">
-                <a href="https://github.com/BILALTITI" target="_blank" class="social-icon">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/bilalaltiti/" target="_blank" class="social-icon">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="mailto:bilalaltiti@hotmail.com" class="social-icon">
-                    <i class="fas fa-envelope"></i>
-                </a>
-            </div>
-            <p class="footer-text">© 2025 <strong style="color: var(--primary);">Bilal Altiti</strong>. All Rights Reserved.</p>
-            <p class="footer-text" style="margin-top: 0.5rem; font-size: 0.9rem;">Built with passion and modern web technologies</p>
+      <div class="proj-row proj-no-link" style="cursor:default">
+        <div class="proj-num">04</div>
+        <div class="proj-main">
+          <div class="proj-row-role">Backend & DevOps Engineer (Azure)</div>
+          <div class="proj-row-name">Breshta</div>
+          <div class="proj-row-tags">
+            <span class="p-tag">ASP.NET Core</span>
+            <span class="p-tag">React Native</span>
+            <span class="p-tag">Azure</span>
+            <span class="p-tag">App Service</span>
+          </div>
         </div>
-    </footer>
+        <div class="proj-meta">
+          <div class="proj-year">2026</div>
+          <div class="proj-arrow" style="opacity:0.2"><i class="fas fa-lock"></i></div>
+        </div>
+      </div>
 
-    <script>
-        // Mobile Menu Toggle
-        const menuBar = document.querySelector('.menu-bar');
-        const navMenu = document.querySelector('.nav-menu');
-        const navLinks = document.querySelectorAll('.nav-links');
+      <div class="proj-row proj-no-link" style="cursor:default">
+        <div class="proj-num">05</div>
+        <div class="proj-main">
+          <div class="proj-row-role">Backend & DevOps Engineer (Azure)</div>
+          <div class="proj-row-name">LastOneWin</div>
+          <div class="proj-row-tags">
+            <span class="p-tag">ASP.NET Core</span>
+            <span class="p-tag">React Native</span>
+            <span class="p-tag">Azure</span>
+            <span class="p-tag">VM</span>
+          </div>
+        </div>
+        <div class="proj-meta">
+          <div class="proj-year">2026</div>
+          <div class="proj-arrow" style="opacity:0.2"><i class="fas fa-lock"></i></div>
+        </div>
+      </div>
 
-        menuBar.addEventListener('click', () => {
-            menuBar.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
+      <a href="https://autocare.premiumasp.net/" target="_blank" class="proj-row">
+        <div class="proj-num">06</div>
+        <div class="proj-main">
+          <div class="proj-row-role">Full Stack & DevOps Engineer</div>
+          <div class="proj-row-name">Auto Care</div>
+          <div class="proj-row-tags">
+            <span class="p-tag">ASP.NET MVC</span>
+            <span class="p-tag">SQL Server</span>
+            <span class="p-tag">Docker</span>
+            <span class="p-tag">Responsive</span>
+          </div>
+        </div>
+        <div class="proj-meta">
+          <div class="proj-year">2026</div>
+          <div class="proj-arrow"><i class="fas fa-arrow-right"></i></div>
+        </div>
+      </a>
 
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                menuBar.classList.remove('active');
-                navMenu.classList.remove('active');
-            });
-        });
+    </div>
+  </div>
+</div>
 
-        // Navbar scroll effect
-        const navbar = document.querySelector('.nav-bar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+<!-- STACK -->
+<section id="stack" class="stack-sec reveal">
+  <div class="stack-inner">
+    <div class="eyebrow">Tech Stack</div>
+    <h2 class="sec-title">Tools &amp; <span class="dim">technologies</span></h2>
+    <div class="stack-grid">
+      <div class="stack-card"><div class="stack-card-icon">☁️</div><div class="stack-card-name">Amazon Web Services</div><div class="stack-card-cat">CLOUD</div></div>
+      <div class="stack-card"><div class="stack-card-icon">🔷</div><div class="stack-card-name">Microsoft Azure</div><div class="stack-card-cat">CLOUD</div></div>
+      <div class="stack-card"><div class="stack-card-icon">🐳</div><div class="stack-card-name">Docker</div><div class="stack-card-cat">CONTAINERS</div></div>
+      <div class="stack-card"><div class="stack-card-icon">⚙️</div><div class="stack-card-name">GitHub Actions</div><div class="stack-card-cat">CI/CD</div></div>
+      <div class="stack-card"><div class="stack-card-icon">🟦</div><div class="stack-card-name">ASP.NET Core</div><div class="stack-card-cat">BACKEND</div></div>
+      <div class="stack-card"><div class="stack-card-icon">🗄️</div><div class="stack-card-name">SQL Server</div><div class="stack-card-cat">DATABASE</div></div>
+      <div class="stack-card"><div class="stack-card-icon">⚛️</div><div class="stack-card-name">React / Next.js</div><div class="stack-card-cat">FRONTEND</div></div>
+      <div class="stack-card"><div class="stack-card-icon">📱</div><div class="stack-card-name">React Native</div><div class="stack-card-cat">MOBILE</div></div>
+      <div class="stack-card"><div class="stack-card-icon">🐘</div><div class="stack-card-name">Laravel / Vue.js</div><div class="stack-card-cat">FULL STACK</div></div>
+      <div class="stack-card"><div class="stack-card-icon">🔐</div><div class="stack-card-name">JWT / OAuth 2.0</div><div class="stack-card-cat">SECURITY</div></div>
+      <div class="stack-card"><div class="stack-card-icon">🐧</div><div class="stack-card-name">Ubuntu Server</div><div class="stack-card-cat">OS</div></div>
+      <div class="stack-card"><div class="stack-card-icon">🌐</div><div class="stack-card-name">C# / .NET</div><div class="stack-card-cat">LANGUAGE</div></div>
+    </div>
+  </div>
+</section>
 
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Animate progress bars
-        const observerOptions = {
-            threshold: 0.5,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const progressBars = entry.target.querySelectorAll('.progress');
-                    progressBars.forEach(bar => {
-                        const width = bar.style.width;
-                        bar.style.width = '0';
-                        setTimeout(() => {
-                            bar.style.width = width;
-                        }, 100);
-                    });
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        const skillsSection = document.querySelector('#skills');
-        if (skillsSection) {
-            observer.observe(skillsSection);
+<!-- ABOUT -->
+<div id="about" class="about-sec reveal">
+  <div class="about-inner">
+    <div class="about-left">
+      <div class="eyebrow">Who I am</div>
+      <h2 class="sec-title">Cloud engineer<br><span class="dim">by passion</span></h2>
+      <div class="about-kpis">
+        <div class="kpi"><div class="kpi-num" data-target="6">0</div><div class="kpi-label">Production Deployments</div></div>
+        <div class="kpi"><div class="kpi-num" data-target="2">0</div><div class="kpi-label">Cloud Platforms</div></div>
+        <div class="kpi"><div class="kpi-num" data-target="3">0</div><div class="kpi-label">Years Experience</div></div>
+        <div class="kpi"><div class="kpi-num" data-target="100">0</div><div class="kpi-label">% Mobile Responsive</div></div>
+      </div>
+    </div>
+    <div class="about-right">
+      <p>I'm <strong>Bilal Al-Titi</strong>, a Cloud & DevOps Engineer based in Amman, Jordan, with hands-on experience across <strong>AWS and Microsoft Azure</strong>. I specialize in designing, deploying, and managing scalable cloud-native applications end to end.</p>
+      <p>On <strong>AWS</strong>, I work with EC2, S3, and CloudFront — deploying applications on Ubuntu servers with a focus on performance, security, and cost optimization. On <strong>Azure</strong>, I leverage Virtual Machines, App Services, and Blob Storage to build production-ready systems.</p>
+      <p>My containerization experience with <strong>Docker</strong> and automation through <strong>GitHub Actions CI/CD</strong> pipelines ensures fast, reliable, and repeatable deployments across environments.</p>
+      <div class="highlight-box">
+        <span class="hl-key">skills</span> = {<br>
+        &nbsp;&nbsp;<span class="hl-key">cloud</span>: [<span class="hl-str">"AWS"</span>, <span class="hl-str">"Azure"</span>],<br>
+        &nbsp;&nbsp;<span class="hl-key">devops</span>: [<span class="hl-str">"Docker"</span>, <span class="hl-str">"GitHub Actions"</span>],<br>
+        &nbsp;&nbsp;<span class="hl-key">backend</span>: [<span class="hl-str">"ASP.NET Core"</span>, <span class="hl-str">"C#"</span>],<br>
+        &nbsp;&nbsp;<span class="hl-key">mobile</span>: <span class="hl-val">true</span>,<br>
+        &nbsp;&nbsp;<span class="hl-key">available</span>: <span class="hl-val">true</span><br>
         }
+      </div>
+    </div>
+  </div>
+</div>
 
-        // Animate elements on scroll
-        const fadeElements = document.querySelectorAll('.skill-card, .project-card, .education-card');
-        
-        const fadeObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.style.opacity = '0';
-                        entry.target.style.transform = 'translateY(20px)';
-                        entry.target.style.transition = 'all 0.6s ease';
-                        
-                        setTimeout(() => {
-                            entry.target.style.opacity = '1';
-                            entry.target.style.transform = 'translateY(0)';
-                        }, 50);
-                    }, index * 100);
-                    fadeObserver.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
+<!-- CONTACT -->
+<div id="contact" class="contact-sec reveal">
+  <div class="contact-grid-bg"></div>
+  <div class="contact-inner">
+    <div class="eyebrow">Let's connect</div>
+    <h2 class="contact-big">LET'S BUILD<br>SOMETHING <span class="orng">GREAT</span></h2>
+    <div class="contact-cards">
+      <a href="mailto:bilalaltiti@hotmail.com" class="c-card">
+        <div class="c-icon"><i class="fas fa-envelope"></i></div>
+        <div><div class="c-lbl">EMAIL</div><div class="c-val">bilalaltiti@hotmail.com</div></div>
+      </a>
+      <a href="tel:+962785439994" class="c-card">
+        <div class="c-icon"><i class="fas fa-phone"></i></div>
+        <div><div class="c-lbl">PHONE</div><div class="c-val">+962 785 439 994</div></div>
+      </a>
+      <a href="https://linkedin.com/in/bilalaltiti/" target="_blank" class="c-card">
+        <div class="c-icon" style="background:rgba(10,102,194,0.1);border-color:rgba(10,102,194,0.2);color:#0A66C2"><i class="fab fa-linkedin-in"></i></div>
+        <div><div class="c-lbl">LINKEDIN</div><div class="c-val">linkedin.com/in/bilalaltiti</div></div>
+      </a>
+      <div class="c-card" style="cursor:default">
+        <div class="c-icon" style="background:rgba(255,107,0,0.06);border-color:rgba(255,107,0,0.15);color:var(--text3)"><i class="fas fa-map-marker-alt"></i></div>
+        <div><div class="c-lbl">LOCATION</div><div class="c-val">Amman, Jordan 🇯🇴</div></div>
+      </div>
+    </div>
+    <div class="social-row">
+      <a href="https://github.com/BILALTITI" target="_blank" class="soc-btn"><i class="fab fa-github"></i> GitHub</a>
+      <a href="https://linkedin.com/in/bilalaltiti/" target="_blank" class="soc-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+      <a href="./Asserts/Bilal Al-Titi.cv.pdf" download class="btn-orng btn-fill" style="border-radius:8px"><i class="fas fa-download" style="font-size:0.8rem"></i> Download CV</a>
+    </div>
+  </div>
+</div>
 
-        fadeElements.forEach(element => {
-            fadeObserver.observe(element);
-        });
+<!-- FOOTER -->
+<footer>
+  <a href="#home" class="foot-logo">BAT<span class="foot-orng">.</span>DEV</a>
+  <span class="foot-copy">© 2025 <span class="foot-orng">Bilal Al-Titi</span> — All rights reserved</span>
+  <span class="foot-copy">Cloud &amp; DevOps Engineer</span>
+</footer>
 
-        // Particle effect
-        const createParticle = () => {
-            const home = document.querySelector('.home');
-            const particle = document.createElement('div');
-            particle.style.position = 'absolute';
-            particle.style.width = '4px';
-            particle.style.height = '4px';
-            particle.style.background = 'var(--primary)';
-            particle.style.borderRadius = '50%';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = Math.random() * 100 + '%';
-            particle.style.opacity = '0';
-            particle.style.animation = 'particleFade 3s ease-in-out infinite';
-            particle.style.animationDelay = Math.random() * 2 + 's';
-            
-            home.appendChild(particle);
-            
-            setTimeout(() => {
-                particle.remove();
-            }, 3000);
-        };
+<script>
+// Cursor
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function loop(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button,.exp-card,.proj-row,.stack-card,.kpi,.c-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hovering'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));
+});
 
-        setInterval(createParticle, 500);
+// Nav
+const nav=document.getElementById('nav'),ham=document.getElementById('ham'),menu=document.getElementById('navMenu');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60));
+ham.addEventListener('click',()=>{
+  const o=menu.classList.toggle('open');
+  ham.children[0].style.transform=o?'translateY(7px) rotate(45deg)':'';
+  ham.children[1].style.opacity=o?'0':'1';
+  ham.children[2].style.transform=o?'translateY(-7px) rotate(-45deg)':'';
+});
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  menu.classList.remove('open');
+  [0,1,2].forEach(i=>{ham.children[i].style.transform='';ham.children[i].style.opacity='1'});
+}));
 
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes particleFade {
-                0%, 100% { opacity: 0; transform: scale(0); }
-                50% { opacity: 0.5; transform: scale(1); }
-            }
-        `;
-        document.head.appendChild(style);
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+  const t=document.querySelector(a.getAttribute('href'));
+  if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
+}));
 
-        // Typing effect for role text
-        const roleText = document.querySelector('.role-text');
-        const roles = ['Full Stack Developer', '.NET Developer', 'React Developer', 'Software Engineer'];
-        let roleIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
+// Reveal
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target)}});
+},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(r=>ro.observe(r));
 
-        function typeRole() {
-            const currentRole = roles[roleIndex];
-            
-            if (isDeleting) {
-                roleText.textContent = currentRole.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                roleText.textContent = currentRole.substring(0, charIndex + 1);
-                charIndex++;
-            }
+// Terminal animation
+const lines=['l1','l2','l3','l4','l5','l6','l7','l8','l9','l10'];
+let li=0;
+function showNextLine(){
+  if(li<lines.length){document.getElementById(lines[li]).classList.add('show');li++;setTimeout(showNextLine,li<=2?600:li<=7?250:400)}
+}
+setTimeout(showNextLine,800);
 
-            if (!isDeleting && charIndex === currentRole.length) {
-                setTimeout(() => isDeleting = true, 2000);
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                roleIndex = (roleIndex + 1) % roles.length;
-            }
-
-            const typingSpeed = isDeleting ? 50 : 100;
-            setTimeout(typeRole, typingSpeed);
-        }
-
-        setTimeout(typeRole, 1000);
-    </script>
+// KPI counters
+const kpis=document.querySelectorAll('.kpi-num');
+const ko=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const el=e.target,target=+el.dataset.target;
+      let cur2=0;const step=target/40;
+      const t=setInterval(()=>{cur2=Math.min(cur2+step,target);el.textContent=Math.floor(cur2)+(target===100?'%':'+');if(cur2>=target)clearInterval(t)},30);
+      ko.unobserve(el);
+    }
+  });
+},{threshold:0.5});
+kpis.forEach(k=>ko.observe(k));
+</script>
 </body>
 </html>
