@@ -56,7 +56,11 @@ nav{
   position:fixed;top:0;left:0;right:0;z-index:500;
   display:flex;align-items:center;justify-content:space-between;
   padding:1.5rem 5%;
-  transition:all 0.4s ease;
+  transition:transform 0.4s ease, opacity 0.4s ease, background 0.4s ease, padding 0.4s ease;
+  transform:translateY(0);opacity:1;
+}
+nav.hidden{
+  transform:translateY(-100%);opacity:0;pointer-events:none;
 }
 nav.scrolled{
   background:rgba(8,8,8,0.9);backdrop-filter:blur(24px);
@@ -539,12 +543,11 @@ footer{
 
 <!-- NAV -->
 <nav id="nav">
-  <a href="#home" class="logo"><span class="logo-dot"></span>NET.CLOUD</a>
+  <a href="#home" class="logo"><span class="logo-dot"></span>full-stack .NET</a>
   <div class="nav-menu" id="navMenu">
     <a href="#about" class="nav-a">About</a>
     <a href="#expertise" class="nav-a">Expertise</a>
     <a href="#projects" class="nav-a">Projects</a>
-    <a href="#experience" class="nav-a">Experience</a>
     <a href="#stack" class="nav-a">Stack</a>
     <a href="#contact" class="nav-a nav-hire">Hire Me</a>
   </div>
@@ -887,7 +890,7 @@ footer{
       <div class="eyebrow">Who I am</div>
       <h2 class="sec-title">.NET first<br><span class="dim">cloud-capable</span></h2>
       <div class="about-kpis">
-        <div class="kpi"><div class="kpi-num" data-target="6">0</div><div class="kpi-label">Production Deployments</div></div>
+        <div class="kpi"><div class="kpi-num" data-target="10">0</div><div class="kpi-label">Production Deployments</div></div>
         <div class="kpi"><div class="kpi-num" data-target="3">0</div><div class="kpi-label">Years Experience</div></div>
         <div class="kpi"><div class="kpi-num" data-target="35">0</div><div class="kpi-label">% Faster API Response</div></div>
         <div class="kpi"><div class="kpi-num" data-target="20">0</div><div class="kpi-label">% Less DB Load</div></div>
@@ -946,7 +949,7 @@ footer{
 
 <!-- FOOTER -->
 <footer>
-  <a href="#home" class="foot-logo">NET<span class="foot-orng">.</span>CLOUD</a>
+  <a href="#home" class="foot-logo">full-stack <span class="foot-orng">.NET</span></a>
   <span class="foot-copy">© <span id="copyYear"></span> <span class="foot-orng">Bilal Al-Titi</span> — All rights reserved</span>
   <span class="foot-copy">Full Stack .NET · Cloud &amp; DevOps</span>
 </footer>
@@ -962,9 +965,12 @@ document.querySelectorAll('a,button,.exp-card,.proj-row,.stack-card,.kpi,.c-card
   el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));
 });
 
-// Nav
+// Nav — hide on scroll, show at top
 const nav=document.getElementById('nav'),ham=document.getElementById('ham'),menu=document.getElementById('navMenu');
-window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60));
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('hidden',scrollY>60);
+  nav.classList.toggle('scrolled',scrollY>60);
+});
 ham.addEventListener('click',()=>{
   const o=menu.classList.toggle('open');
   ham.children[0].style.transform=o?'translateY(7px) rotate(45deg)':'';
@@ -998,7 +1004,7 @@ setTimeout(showNextLine,800);
 
 // KPI counters
 const kpis=document.querySelectorAll('.kpi-num');
-const kpiSuffix={'6':'+','3':'+','35':'%','20':'%'};
+const kpiSuffix={'10':'+','3':'+','35':'%','20':'%'};
 const ko=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
