@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bilal Al-Titi — Cloud & DevOps Engineer</title>
+<title>Bilal Al-Titi — Full Stack .NET Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@400;500;700;800&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
@@ -149,7 +149,8 @@ nav.scrolled{
 
 .hero-content{position:relative;z-index:2;max-width:700px}
 .hero-badge{
-  display:inline-flex;align-items:center;gap:0.6rem;
+  display:none;
+  align-items:center;gap:0.6rem;
   background:var(--orange-glow2);border:1px solid rgba(255,107,0,0.25);
   border-radius:100px;padding:0.4rem 1rem;
   font-family:'Fira Code',monospace;font-size:0.7rem;color:var(--orange2);
@@ -170,10 +171,14 @@ nav.scrolled{
 .hero-role{
   font-size:1rem;font-weight:300;color:var(--text2);
   letter-spacing:0.04em;margin-bottom:2.5rem;
-  display:flex;align-items:center;gap:0.8rem;
+  display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;
   animation:fadeUp 0.6s 0.2s ease both;
 }
 .hero-role::before{content:'';width:28px;height:1px;background:var(--orange)}
+.hero-role .side-skill{
+  font-family:'Fira Code',monospace;font-size:0.7rem;color:var(--text3);
+  letter-spacing:0.04em;
+}
 .hero-desc{
   font-size:1.05rem;line-height:1.8;color:var(--text2);
   max-width:520px;margin-bottom:3rem;font-weight:300;
@@ -230,9 +235,18 @@ nav.scrolled{
   letter-spacing:0.03em;color:var(--text);line-height:0.95;margin-bottom:1rem;
 }
 .sec-title .dim{color:var(--text3)}
+.sec-sub{font-size:0.95rem;color:var(--text2);font-weight:300;max-width:560px;margin-bottom:1rem}
 
 /* EXPERTISE CARDS */
-.expertise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:4rem}
+.expertise-group-label{
+  font-family:'Fira Code',monospace;font-size:0.66rem;color:var(--text3);
+  letter-spacing:0.1em;text-transform:uppercase;margin:3rem 0 1rem;
+  display:flex;align-items:center;gap:0.8rem;
+}
+.expertise-group-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.expertise-group-label.primary{color:var(--orange2)}
+.expertise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.expertise-grid.duo{grid-template-columns:repeat(2,1fr)}
 .exp-card{
   background:var(--bg2);padding:2.5rem;
   transition:all 0.35s ease;position:relative;overflow:hidden;
@@ -244,6 +258,7 @@ nav.scrolled{
 }
 .exp-card:hover{background:var(--bg3)}
 .exp-card:hover::before{opacity:1}
+.exp-card.secondary{opacity:0.92}
 .exp-icon{
   width:52px;height:52px;border-radius:12px;
   background:var(--orange-glow);border:1px solid rgba(255,107,0,0.2);
@@ -300,6 +315,7 @@ nav.scrolled{
   background:rgba(255,255,255,0.04);color:var(--text2);
   border:1px solid var(--border);
 }
+.p-tag.main-stack{background:rgba(255,107,0,0.08);color:var(--orange2);border-color:rgba(255,107,0,0.15)}
 .proj-meta{display:flex;flex-direction:column;align-items:flex-end;gap:0.8rem;flex-shrink:0}
 .proj-year{font-family:'Fira Code',monospace;font-size:0.72rem;color:var(--text3)}
 .proj-arrow{
@@ -313,12 +329,13 @@ nav.scrolled{
 /* STACK */
 .stack-sec{padding:7rem 5%}
 .stack-inner{max-width:1400px;margin:0 auto}
-.stack-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:4rem}
+.stack-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:2.5rem}
 .stack-card{
   background:var(--bg2);border:1px solid var(--border);border-radius:12px;
   padding:1.8rem;transition:all 0.3s ease;
 }
 .stack-card:hover{border-color:rgba(255,107,0,0.3);background:var(--bg3);transform:translateY(-3px)}
+.stack-card.core{border-color:rgba(255,107,0,0.18)}
 .stack-card-icon{
   font-size:1.5rem;margin-bottom:1rem;
   display:flex;align-items:center;gap:0.5rem;
@@ -355,6 +372,7 @@ nav.scrolled{
 .highlight-box .hl-key{color:var(--orange2)}
 .highlight-box .hl-val{color:#a8ff78}
 .highlight-box .hl-str{color:#ffd580}
+.highlight-box .hl-comment{color:var(--text3)}
 
 /* CONTACT */
 .contact-sec{
@@ -500,6 +518,7 @@ footer{
   .nav-menu.open{display:flex}
   .ham{display:flex;z-index:600}
   .expertise-grid{grid-template-columns:1fr;border-radius:12px}
+  .expertise-grid.duo{grid-template-columns:1fr}
   .stack-grid{grid-template-columns:repeat(2,1fr)}
   .about-inner{grid-template-columns:1fr;gap:3rem}
   .contact-cards{grid-template-columns:1fr}
@@ -520,7 +539,7 @@ footer{
 
 <!-- NAV -->
 <nav id="nav">
-  <a href="#home" class="logo"><span class="logo-dot"></span>BAT.DEV</a>
+  <a href="#home" class="logo"><span class="logo-dot"></span>NET.CLOUD</a>
   <div class="nav-menu" id="navMenu">
     <a href="#about" class="nav-a">About</a>
     <a href="#expertise" class="nav-a">Expertise</a>
@@ -544,19 +563,21 @@ footer{
       <div class="term-dot t1"></div>
       <div class="term-dot t2"></div>
       <div class="term-dot t3"></div>
-      <div class="term-title">bilal@cloud:~</div>
+      <div class="term-title">bilal@dotnet:~</div>
     </div>
     <div class="term-body" id="termBody">
       <div class="term-line" id="l1"><span class="term-prompt">$</span><span class="term-cmd"> whoami</span></div>
-      <div class="term-line" id="l2"><span class="term-out">bilal-altiti // cloud-devops-engineer</span></div>
-      <div class="term-line" id="l3"><span class="term-prompt">$</span><span class="term-cmd"> cloud --status</span></div>
-      <div class="term-line" id="l4"><span class="term-out" style="color:#a8ff78">✓ AWS: EC2, S3, CloudFront</span></div>
-      <div class="term-line" id="l5"><span class="term-out" style="color:#a8ff78">✓ Azure: VM, App Service, Blob</span></div>
-      <div class="term-line" id="l6"><span class="term-out" style="color:#a8ff78">✓ Docker: containerized</span></div>
-      <div class="term-line" id="l7"><span class="term-out" style="color:#a8ff78">✓ CI/CD: GitHub Actions</span></div>
-      <div class="term-line" id="l8"><span class="term-prompt">$</span><span class="term-cmd"> status --projects</span></div>
-      <div class="term-line" id="l9"><span class="term-out">6 production deployments active</span></div>
-      <div class="term-line" id="l10"><span class="term-prompt">$</span><span class="term-cursor"></span></div>
+      <div class="term-line" id="l2"><span class="term-out">bilal-altiti // full-stack .NET developer</span></div>
+      <div class="term-line" id="l3"><span class="term-prompt">$</span><span class="term-cmd"> dotnet --stack</span></div>
+      <div class="term-line" id="l4"><span class="term-out" style="color:#a8ff78">✓ ASP.NET Core, C#, Web API, MVC</span></div>
+      <div class="term-line" id="l5"><span class="term-out" style="color:#a8ff78">✓ EF Core, SQL Server, Dapper, Redis</span></div>
+      <div class="term-line" id="l6"><span class="term-out" style="color:#a8ff78">✓ SignalR, RabbitMQ, Worker Queues</span></div>
+      <div class="term-line" id="l7"><span class="term-out" style="color:#a8ff78">✓ Middleware, DI, Clean Architecture</span></div>
+      <div class="term-line" id="l8"><span class="term-prompt">$</span><span class="term-cmd"> devops --secondary</span></div>
+      <div class="term-line" id="l9"><span class="term-out" style="color:#a8ff78">✓ AWS / Azure / Docker / CI-CD</span></div>
+      <div class="term-line" id="l10"><span class="term-prompt">$</span><span class="term-cmd"> status --projects</span></div>
+      <div class="term-line" id="l11"><span class="term-out">10 production deployments active</span></div>
+      <div class="term-line" id="l12"><span class="term-prompt">$</span><span class="term-cursor"></span></div>
     </div>
   </div>
 
@@ -569,9 +590,9 @@ footer{
       BILAL<br>
       <span class="o-stroke">AL-TITI</span>
     </h1>
-    <div class="hero-role">Cloud &amp; DevOps Engineer · Full Stack Developer</div>
+    <div class="hero-role">Full Stack .NET Developer <span class="side-skill">// Cloud &amp; DevOps on the side</span></div>
     <p class="hero-desc">
-      Designing, deploying, and managing <strong>scalable cloud-native applications</strong> on <strong>AWS &amp; Azure</strong>. From infrastructure to CI/CD pipelines — end to end.
+      I design and build <strong>full-stack .NET applications</strong> — ASP.NET Core, C#, and SQL Server at the core — and I'm comfortable enough with <strong>cloud &amp; DevOps</strong> to deploy, containerize, and ship what I build myself.
     </p>
     <div class="hero-actions">
       <a href="#contact" class="btn-orng btn-fill"><i class="fas fa-paper-plane" style="font-size:0.8rem"></i> Get In Touch</a>
@@ -589,8 +610,8 @@ footer{
 <!-- TICKER -->
 <div class="ticker">
   <div class="ticker-track">
-    <div class="ticker-item">AWS<div class="ticker-sep"></div>Azure<div class="ticker-sep"></div>Docker<div class="ticker-sep"></div>CI/CD<div class="ticker-sep"></div>GitHub Actions<div class="ticker-sep"></div>EC2<div class="ticker-sep"></div>S3<div class="ticker-sep"></div>CloudFront<div class="ticker-sep"></div>App Service<div class="ticker-sep"></div>Blob Storage<div class="ticker-sep"></div>ASP.NET Core<div class="ticker-sep"></div>React<div class="ticker-sep"></div>Next.js<div class="ticker-sep"></div>React Native<div class="ticker-sep"></div>Laravel<div class="ticker-sep"></div>Vue.js</div>
-    <div class="ticker-item">AWS<div class="ticker-sep"></div>Azure<div class="ticker-sep"></div>Docker<div class="ticker-sep"></div>CI/CD<div class="ticker-sep"></div>GitHub Actions<div class="ticker-sep"></div>EC2<div class="ticker-sep"></div>S3<div class="ticker-sep"></div>CloudFront<div class="ticker-sep"></div>App Service<div class="ticker-sep"></div>Blob Storage<div class="ticker-sep"></div>ASP.NET Core<div class="ticker-sep"></div>React<div class="ticker-sep"></div>Next.js<div class="ticker-sep"></div>React Native<div class="ticker-sep"></div>Laravel<div class="ticker-sep"></div>Vue.js</div>
+    <div class="ticker-item">ASP.NET Core<div class="ticker-sep"></div>C#<div class="ticker-sep"></div>Web API<div class="ticker-sep"></div>SQL Server<div class="ticker-sep"></div>Entity Framework<div class="ticker-sep"></div>LINQ<div class="ticker-sep"></div>SignalR<div class="ticker-sep"></div>RabbitMQ<div class="ticker-sep"></div>Clean Architecture<div class="ticker-sep"></div>React<div class="ticker-sep"></div>Next.js<div class="ticker-sep"></div>AWS<div class="ticker-sep"></div>Azure<div class="ticker-sep"></div>Docker<div class="ticker-sep"></div>CI/CD<div class="ticker-sep"></div>GitHub Actions</div>
+    <div class="ticker-item">ASP.NET Core<div class="ticker-sep"></div>C#<div class="ticker-sep"></div>Web API<div class="ticker-sep"></div>SQL Server<div class="ticker-sep"></div>Entity Framework<div class="ticker-sep"></div>LINQ<div class="ticker-sep"></div>SignalR<div class="ticker-sep"></div>RabbitMQ<div class="ticker-sep"></div>Clean Architecture<div class="ticker-sep"></div>React<div class="ticker-sep"></div>Next.js<div class="ticker-sep"></div>AWS<div class="ticker-sep"></div>Azure<div class="ticker-sep"></div>Docker<div class="ticker-sep"></div>CI/CD<div class="ticker-sep"></div>GitHub Actions</div>
   </div>
 </div>
 
@@ -598,44 +619,14 @@ footer{
 <section id="expertise" class="sec reveal">
   <div class="eyebrow">Specializations</div>
   <h2 class="sec-title">What I <span class="dim">do</span></h2>
+  <p class="sec-sub">.NET is the craft. Cloud &amp; DevOps is how I make sure what I build actually stays up.</p>
+
+  <div class="expertise-group-label primary">Core — .NET &amp; Full Stack Development</div>
   <div class="expertise-grid">
-    <div class="exp-card">
-      <div class="exp-icon"><i class="fab fa-aws"></i></div>
-      <div class="exp-name">AWS Engineering</div>
-      <div class="exp-desc">Deploying production applications on Ubuntu EC2 instances. Managing S3 storage, CloudFront CDN distribution, with focus on performance, security, and cost optimization.</div>
-      <div class="exp-tags">
-        <span class="exp-tag">EC2</span>
-        <span class="exp-tag">S3</span>
-        <span class="exp-tag">CloudFront</span>
-        <span class="exp-tag">Ubuntu Server</span>
-      </div>
-    </div>
-    <div class="exp-card">
-      <div class="exp-icon"><i class="fab fa-microsoft"></i></div>
-      <div class="exp-name">Azure Engineering</div>
-      <div class="exp-desc">Building and managing production-ready systems using Virtual Machines (Windows & Ubuntu), App Services, Blob Storage, and core Azure services.</div>
-      <div class="exp-tags">
-        <span class="exp-tag">Azure VM</span>
-        <span class="exp-tag">App Service</span>
-        <span class="exp-tag">Blob Storage</span>
-        <span class="exp-tag">Azure DevOps</span>
-      </div>
-    </div>
-    <div class="exp-card">
-      <div class="exp-icon"><i class="fab fa-docker"></i></div>
-      <div class="exp-name">Containers & CI/CD</div>
-      <div class="exp-desc">Containerizing applications with Docker and implementing automated CI/CD pipelines using GitHub Actions to streamline build, test, and deployment workflows.</div>
-      <div class="exp-tags">
-        <span class="exp-tag">Docker</span>
-        <span class="exp-tag">GitHub Actions</span>
-        <span class="exp-tag">Pipelines</span>
-        <span class="exp-tag">Automation</span>
-      </div>
-    </div>
     <div class="exp-card">
       <div class="exp-icon"><i class="fas fa-server"></i></div>
       <div class="exp-name">Backend Development</div>
-      <div class="exp-desc">Building scalable RESTful APIs and backend systems with ASP.NET Core and C#. Microservices architecture, authentication, and SQL Server database management.</div>
+      <div class="exp-desc">Building scalable RESTful APIs and backend systems with ASP.NET Core and C#. Authentication, SQL Server database management, and production-ready Web APIs.</div>
       <div class="exp-tags">
         <span class="exp-tag">ASP.NET Core</span>
         <span class="exp-tag">C#</span>
@@ -644,25 +635,86 @@ footer{
       </div>
     </div>
     <div class="exp-card">
-      <div class="exp-icon"><i class="fas fa-code"></i></div>
-      <div class="exp-name">Full Stack Development</div>
-      <div class="exp-desc">Delivering complete, mobile-responsive web applications combining modern frontend frameworks with robust backend systems — optimized for user experience and performance.</div>
+      <div class="exp-icon"><i class="fas fa-database"></i></div>
+      <div class="exp-name">Data &amp; ORM</div>
+      <div class="exp-desc">Modeling and optimizing data access with Entity Framework Core, LINQ, Dapper, and ADO.NET — plus Redis caching to cut load and speed up response times.</div>
       <div class="exp-tags">
-        <span class="exp-tag">React</span>
-        <span class="exp-tag">Next.js</span>
-        <span class="exp-tag">Vue.js</span>
-        <span class="exp-tag">React Native</span>
+        <span class="exp-tag">EF Core</span>
+        <span class="exp-tag">LINQ</span>
+        <span class="exp-tag">Dapper</span>
+        <span class="exp-tag">Redis</span>
       </div>
     </div>
     <div class="exp-card">
+      <div class="exp-icon"><i class="fas fa-code"></i></div>
+      <div class="exp-name">Full Stack Development</div>
+      <div class="exp-desc">Delivering complete, mobile-responsive web applications combining modern frontend frameworks with robust .NET backend systems — optimized for UX and performance.</div>
+      <div class="exp-tags">
+        <span class="exp-tag">React</span>
+        <span class="exp-tag">Next.js</span>
+        <span class="exp-tag">React Native</span>
+        <span class="exp-tag">MVC</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="expertise-group-label primary">Real-Time, Messaging &amp; Architecture</div>
+  <div class="expertise-grid duo">
+    <div class="exp-card">
+      <div class="exp-icon"><i class="fas fa-bolt"></i></div>
+      <div class="exp-name">Real-Time &amp; Messaging</div>
+      <div class="exp-desc">Push live updates with SignalR, offload work through RabbitMQ message queues, and process background jobs with worker queue patterns — keeping APIs responsive under load.</div>
+      <div class="exp-tags">
+        <span class="exp-tag">SignalR</span>
+        <span class="exp-tag">RabbitMQ</span>
+        <span class="exp-tag">Worker Queues</span>
+        <span class="exp-tag">Background Jobs</span>
+      </div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-icon"><i class="fas fa-project-diagram"></i></div>
+      <div class="exp-name">Architecture &amp; Patterns</div>
+      <div class="exp-desc">Structuring ASP.NET Core apps with custom middleware, built-in dependency injection, microservices boundaries, SOLID principles, clean architecture, and proven design patterns.</div>
+      <div class="exp-tags">
+        <span class="exp-tag">Middleware</span>
+        <span class="exp-tag">Dependency Injection</span>
+        <span class="exp-tag">Microservices</span>
+        <span class="exp-tag">SOLID / Clean Architecture</span>
+        <span class="exp-tag">Design Patterns</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="expertise-group-label">Supporting — Cloud &amp; DevOps</div>
+  <div class="expertise-grid">
+    <div class="exp-card secondary">
+      <div class="exp-icon"><i class="fab fa-aws"></i></div>
+      <div class="exp-name">Cloud Deployment</div>
+      <div class="exp-desc">Deploying my own .NET applications on AWS (EC2, S3, CloudFront) and Azure (App Service, VM, Blob Storage) — so I can ship and operate what I build, end to end.</div>
+      <div class="exp-tags">
+        <span class="exp-tag">EC2 / App Service</span>
+        <span class="exp-tag">S3 / Blob</span>
+        <span class="exp-tag">CloudFront</span>
+      </div>
+    </div>
+    <div class="exp-card secondary">
+      <div class="exp-icon"><i class="fab fa-docker"></i></div>
+      <div class="exp-name">Containers &amp; CI/CD</div>
+      <div class="exp-desc">Containerizing .NET apps with Docker and wiring up GitHub Actions pipelines for automated build, test, and deployment — fewer manual steps, fewer surprises.</div>
+      <div class="exp-tags">
+        <span class="exp-tag">Docker</span>
+        <span class="exp-tag">GitHub Actions</span>
+        <span class="exp-tag">CI/CD</span>
+      </div>
+    </div>
+    <div class="exp-card secondary">
       <div class="exp-icon"><i class="fas fa-shield-alt"></i></div>
-      <div class="exp-name">Security & Optimization</div>
-      <div class="exp-desc">Implementing authentication & authorization layers, SSL/TLS configurations, security hardening on cloud infrastructure, and continuous cost optimization across cloud environments.</div>
+      <div class="exp-name">Security &amp; Optimization</div>
+      <div class="exp-desc">JWT/OAuth 2.0 authentication, SSL/TLS configuration, and infrastructure cost &amp; performance tuning across the environments my .NET apps run on.</div>
       <div class="exp-tags">
         <span class="exp-tag">JWT / OAuth</span>
         <span class="exp-tag">SSL/TLS</span>
         <span class="exp-tag">Cost Optimization</span>
-        <span class="exp-tag">Monitoring</span>
       </div>
     </div>
   </div>
@@ -675,13 +727,104 @@ footer{
     <h2 class="sec-title">Real-world <span class="dim">projects</span></h2>
     <div class="projects-list">
 
-      <a href="https://cashtics.com/" target="_blank" class="proj-row">
+      <a href="https://sooquk.com/" target="_blank" class="proj-row">
         <div class="proj-num">01</div>
+        <div class="proj-main">
+          <div class="proj-row-role">.NET Backend Developer (+ DevOps)</div>
+          <div class="proj-row-name">Sooquk</div>
+          <div class="proj-row-tags">
+            <span class="p-tag main-stack">ASP.NET Core</span>
+            <span class="p-tag main-stack">SQL Server</span>
+            <span class="p-tag">Next.js</span>
+            <span class="p-tag">React Native</span>
+            <span class="p-tag">CI/CD</span>
+          </div>
+        </div>
+        <div class="proj-meta">
+          <div class="proj-year">2025</div>
+          <div class="proj-arrow"><i class="fas fa-arrow-right"></i></div>
+        </div>
+      </a>
+
+      <div class="proj-row proj-no-link" style="cursor:default">
+        <div class="proj-num">02</div>
+        <div class="proj-main">
+          <div class="proj-row-role">.NET Backend Developer (Azure DevOps)</div>
+          <div class="proj-row-name">Breshta</div>
+          <div class="proj-row-tags">
+            <span class="p-tag main-stack">ASP.NET Core</span>
+            <span class="p-tag">React Native</span>
+            <span class="p-tag">Azure</span>
+            <span class="p-tag">App Service</span>
+          </div>
+        </div>
+        <div class="proj-meta">
+          <div class="proj-year">2026</div>
+          <div class="proj-arrow" style="opacity:0.2"><i class="fas fa-lock"></i></div>
+        </div>
+      </div>
+
+      <div class="proj-row proj-no-link" style="cursor:default">
+        <div class="proj-num">03</div>
+        <div class="proj-main">
+          <div class="proj-row-role">.NET Backend Developer (Azure DevOps)</div>
+          <div class="proj-row-name">LastOneWin</div>
+          <div class="proj-row-tags">
+            <span class="p-tag main-stack">ASP.NET Core</span>
+            <span class="p-tag">React Native</span>
+            <span class="p-tag">Azure</span>
+            <span class="p-tag">VM</span>
+          </div>
+        </div>
+        <div class="proj-meta">
+          <div class="proj-year">2026</div>
+          <div class="proj-arrow" style="opacity:0.2"><i class="fas fa-lock"></i></div>
+        </div>
+      </div>
+
+      <a href="https://autocare.premiumasp.net/" target="_blank" class="proj-row">
+        <div class="proj-num">04</div>
+        <div class="proj-main">
+          <div class="proj-row-role">Full Stack .NET Developer (+ DevOps)</div>
+          <div class="proj-row-name">Auto Care</div>
+          <div class="proj-row-tags">
+            <span class="p-tag main-stack">ASP.NET MVC</span>
+            <span class="p-tag main-stack">SQL Server</span>
+            <span class="p-tag">Docker</span>
+            <span class="p-tag">Responsive</span>
+          </div>
+        </div>
+        <div class="proj-meta">
+          <div class="proj-year">2026</div>
+          <div class="proj-arrow"><i class="fas fa-arrow-right"></i></div>
+        </div>
+      </a>
+
+      <a href="https://okalforheroes.com/" target="_blank" class="proj-row">
+        <div class="proj-num">05</div>
+        <div class="proj-main">
+          <div class="proj-row-role">Full Stack .NET Developer (+ DevOps)</div>
+          <div class="proj-row-name">Okal For Heroes</div>
+          <div class="proj-row-tags">
+            <span class="p-tag main-stack">ASP.NET MVC</span>
+            <span class="p-tag">UX Design</span>
+            <span class="p-tag">Hosting</span>
+            <span class="p-tag">Responsive</span>
+          </div>
+        </div>
+        <div class="proj-meta">
+          <div class="proj-year">2026</div>
+          <div class="proj-arrow"><i class="fas fa-arrow-right"></i></div>
+        </div>
+      </a>
+
+      <a href="https://cashtics.com/" target="_blank" class="proj-row">
+        <div class="proj-num">06</div>
         <div class="proj-main">
           <div class="proj-row-role">DevOps Engineer (AWS)</div>
           <div class="proj-row-name">Cashtics</div>
           <div class="proj-row-tags">
-            <span class="p-tag">Laravel</span>
+            <span class="p-tag">AWS EC2 Load Balancer</span>
             <span class="p-tag">Vue.js</span>
             <span class="p-tag">AWS</span>
             <span class="p-tag">S3</span>
@@ -695,96 +838,6 @@ footer{
         </div>
       </a>
 
-      <a href="https://sooquk.com/" target="_blank" class="proj-row">
-        <div class="proj-num">02</div>
-        <div class="proj-main">
-          <div class="proj-row-role">Backend & DevOps Engineer</div>
-          <div class="proj-row-name">Sooquk</div>
-          <div class="proj-row-tags">
-            <span class="p-tag">ASP.NET Core</span>
-            <span class="p-tag">Next.js</span>
-            <span class="p-tag">React Native</span>
-            <span class="p-tag">CI/CD</span>
-          </div>
-        </div>
-        <div class="proj-meta">
-          <div class="proj-year">2025</div>
-          <div class="proj-arrow"><i class="fas fa-arrow-right"></i></div>
-        </div>
-      </a>
-
-      <a href="https://okalforheroes.com/" target="_blank" class="proj-row">
-        <div class="proj-num">03</div>
-        <div class="proj-main">
-          <div class="proj-row-role">Full Stack & DevOps Engineer</div>
-          <div class="proj-row-name">Okal For Heroes</div>
-          <div class="proj-row-tags">
-            <span class="p-tag">ASP.NET MVC</span>
-            <span class="p-tag">UX Design</span>
-            <span class="p-tag">Hosting</span>
-            <span class="p-tag">Responsive</span>
-          </div>
-        </div>
-        <div class="proj-meta">
-          <div class="proj-year">2026</div>
-          <div class="proj-arrow"><i class="fas fa-arrow-right"></i></div>
-        </div>
-      </a>
-
-      <div class="proj-row proj-no-link" style="cursor:default">
-        <div class="proj-num">04</div>
-        <div class="proj-main">
-          <div class="proj-row-role">Backend & DevOps Engineer (Azure)</div>
-          <div class="proj-row-name">Breshta</div>
-          <div class="proj-row-tags">
-            <span class="p-tag">ASP.NET Core</span>
-            <span class="p-tag">React Native</span>
-            <span class="p-tag">Azure</span>
-            <span class="p-tag">App Service</span>
-          </div>
-        </div>
-        <div class="proj-meta">
-          <div class="proj-year">2026</div>
-          <div class="proj-arrow" style="opacity:0.2"><i class="fas fa-lock"></i></div>
-        </div>
-      </div>
-
-      <div class="proj-row proj-no-link" style="cursor:default">
-        <div class="proj-num">05</div>
-        <div class="proj-main">
-          <div class="proj-row-role">Backend & DevOps Engineer (Azure)</div>
-          <div class="proj-row-name">LastOneWin</div>
-          <div class="proj-row-tags">
-            <span class="p-tag">ASP.NET Core</span>
-            <span class="p-tag">React Native</span>
-            <span class="p-tag">Azure</span>
-            <span class="p-tag">VM</span>
-          </div>
-        </div>
-        <div class="proj-meta">
-          <div class="proj-year">2026</div>
-          <div class="proj-arrow" style="opacity:0.2"><i class="fas fa-lock"></i></div>
-        </div>
-      </div>
-
-      <a href="https://autocare.premiumasp.net/" target="_blank" class="proj-row">
-        <div class="proj-num">06</div>
-        <div class="proj-main">
-          <div class="proj-row-role">Full Stack & DevOps Engineer</div>
-          <div class="proj-row-name">Auto Care</div>
-          <div class="proj-row-tags">
-            <span class="p-tag">ASP.NET MVC</span>
-            <span class="p-tag">SQL Server</span>
-            <span class="p-tag">Docker</span>
-            <span class="p-tag">Responsive</span>
-          </div>
-        </div>
-        <div class="proj-meta">
-          <div class="proj-year">2026</div>
-          <div class="proj-arrow"><i class="fas fa-arrow-right"></i></div>
-        </div>
-      </a>
-
     </div>
   </div>
 </div>
@@ -794,19 +847,35 @@ footer{
   <div class="stack-inner">
     <div class="eyebrow">Tech Stack</div>
     <h2 class="sec-title">Tools &amp; <span class="dim">technologies</span></h2>
+
+    <div class="expertise-group-label primary">Core — .NET</div>
+    <div class="stack-grid">
+      <div class="stack-card core"><div class="stack-card-icon">🌐</div><div class="stack-card-name">C# / .NET</div><div class="stack-card-cat">LANGUAGE</div></div>
+      <div class="stack-card core"><div class="stack-card-icon">🟦</div><div class="stack-card-name">ASP.NET Core</div><div class="stack-card-cat">BACKEND</div></div>
+      <div class="stack-card core"><div class="stack-card-icon">🗄️</div><div class="stack-card-name">SQL Server</div><div class="stack-card-cat">DATABASE</div></div>
+      <div class="stack-card core"><div class="stack-card-icon">🔗</div><div class="stack-card-name">EF Core / LINQ / Dapper</div><div class="stack-card-cat">ORM</div></div>
+      <div class="stack-card core"><div class="stack-card-icon">⚛️</div><div class="stack-card-name">React / Next.js</div><div class="stack-card-cat">FRONTEND</div></div>
+      <div class="stack-card core"><div class="stack-card-icon">📱</div><div class="stack-card-name">React Native</div><div class="stack-card-cat">MOBILE</div></div>
+      <div class="stack-card core"><div class="stack-card-icon">🔐</div><div class="stack-card-name">JWT / OAuth 2.0</div><div class="stack-card-cat">SECURITY</div></div>
+      <div class="stack-card core"><div class="stack-card-icon">⚡</div><div class="stack-card-name">SignalR</div><div class="stack-card-cat">REAL-TIME</div></div>
+      <div class="stack-card core"><div class="stack-card-icon">🐇</div><div class="stack-card-name">RabbitMQ</div><div class="stack-card-cat">MESSAGING</div></div>
+      <div class="stack-card core"><div class="stack-card-icon">⏱️</div><div class="stack-card-name">Worker Queues</div><div class="stack-card-cat">BACKGROUND JOBS</div></div>
+      <div class="stack-card core"><div class="stack-card-icon">🔀</div><div class="stack-card-name">Middleware / DI</div><div class="stack-card-cat">.NET PATTERNS</div></div>
+      <div class="stack-card core"><div class="stack-card-icon">🏗️</div><div class="stack-card-name">Clean Architecture / SOLID</div><div class="stack-card-cat">ARCHITECTURE</div></div>
+      <div class="stack-card core"><div class="stack-card-icon">🧩</div><div class="stack-card-name">Microservices / Design Patterns</div><div class="stack-card-cat">ARCHITECTURE</div></div>
+    </div>
+
+    <div class="expertise-group-label">Supporting — Cloud &amp; DevOps</div>
     <div class="stack-grid">
       <div class="stack-card"><div class="stack-card-icon">☁️</div><div class="stack-card-name">Amazon Web Services</div><div class="stack-card-cat">CLOUD</div></div>
       <div class="stack-card"><div class="stack-card-icon">🔷</div><div class="stack-card-name">Microsoft Azure</div><div class="stack-card-cat">CLOUD</div></div>
+      <div class="stack-card"><div class="stack-card-icon">⚖️</div><div class="stack-card-name">AWS EC2 Load Balancer</div><div class="stack-card-cat">CLOUD</div></div>
       <div class="stack-card"><div class="stack-card-icon">🐳</div><div class="stack-card-name">Docker</div><div class="stack-card-cat">CONTAINERS</div></div>
       <div class="stack-card"><div class="stack-card-icon">⚙️</div><div class="stack-card-name">GitHub Actions</div><div class="stack-card-cat">CI/CD</div></div>
-      <div class="stack-card"><div class="stack-card-icon">🟦</div><div class="stack-card-name">ASP.NET Core</div><div class="stack-card-cat">BACKEND</div></div>
-      <div class="stack-card"><div class="stack-card-icon">🗄️</div><div class="stack-card-name">SQL Server</div><div class="stack-card-cat">DATABASE</div></div>
-      <div class="stack-card"><div class="stack-card-icon">⚛️</div><div class="stack-card-name">React / Next.js</div><div class="stack-card-cat">FRONTEND</div></div>
-      <div class="stack-card"><div class="stack-card-icon">📱</div><div class="stack-card-name">React Native</div><div class="stack-card-cat">MOBILE</div></div>
-      <div class="stack-card"><div class="stack-card-icon">🐘</div><div class="stack-card-name">Laravel / Vue.js</div><div class="stack-card-cat">FULL STACK</div></div>
-      <div class="stack-card"><div class="stack-card-icon">🔐</div><div class="stack-card-name">JWT / OAuth 2.0</div><div class="stack-card-cat">SECURITY</div></div>
+      <div class="stack-card"><div class="stack-card-icon">🟥</div><div class="stack-card-name">Redis</div><div class="stack-card-cat">CACHING</div></div>
       <div class="stack-card"><div class="stack-card-icon">🐧</div><div class="stack-card-name">Ubuntu Server</div><div class="stack-card-cat">OS</div></div>
-      <div class="stack-card"><div class="stack-card-icon">🌐</div><div class="stack-card-name">C# / .NET</div><div class="stack-card-cat">LANGUAGE</div></div>
+      <div class="stack-card"><div class="stack-card-icon">💚</div><div class="stack-card-name">Vue.js</div><div class="stack-card-cat">FRONTEND</div></div>
+      <div class="stack-card"><div class="stack-card-icon">🅰️</div><div class="stack-card-name">Angular</div><div class="stack-card-cat">FRONTEND</div></div>
     </div>
   </div>
 </section>
@@ -816,26 +885,28 @@ footer{
   <div class="about-inner">
     <div class="about-left">
       <div class="eyebrow">Who I am</div>
-      <h2 class="sec-title">Cloud engineer<br><span class="dim">by passion</span></h2>
+      <h2 class="sec-title">.NET first<br><span class="dim">cloud-capable</span></h2>
       <div class="about-kpis">
         <div class="kpi"><div class="kpi-num" data-target="6">0</div><div class="kpi-label">Production Deployments</div></div>
-        <div class="kpi"><div class="kpi-num" data-target="2">0</div><div class="kpi-label">Cloud Platforms</div></div>
         <div class="kpi"><div class="kpi-num" data-target="3">0</div><div class="kpi-label">Years Experience</div></div>
-        <div class="kpi"><div class="kpi-num" data-target="100">0</div><div class="kpi-label">% Mobile Responsive</div></div>
+        <div class="kpi"><div class="kpi-num" data-target="35">0</div><div class="kpi-label">% Faster API Response</div></div>
+        <div class="kpi"><div class="kpi-num" data-target="20">0</div><div class="kpi-label">% Less DB Load</div></div>
       </div>
     </div>
     <div class="about-right">
-      <p>I'm <strong>Bilal Al-Titi</strong>, a Cloud & DevOps Engineer based in Amman, Jordan, with hands-on experience across <strong>AWS and Microsoft Azure</strong>. I specialize in designing, deploying, and managing scalable cloud-native applications end to end.</p>
-      <p>On <strong>AWS</strong>, I work with EC2, S3, and CloudFront — deploying applications on Ubuntu servers with a focus on performance, security, and cost optimization. On <strong>Azure</strong>, I leverage Virtual Machines, App Services, and Blob Storage to build production-ready systems.</p>
-      <p>My containerization experience with <strong>Docker</strong> and automation through <strong>GitHub Actions CI/CD</strong> pipelines ensures fast, reliable, and repeatable deployments across environments.</p>
+      <p>I'm <strong>Bilal Al-Titi</strong>, a Full Stack .NET Developer based in Amman, Jordan. My core craft is building secure, scalable web applications with <strong>ASP.NET Core</strong>, <strong>C#</strong>, and <strong>SQL Server</strong> — microservices, RESTful APIs, JWT/OAuth 2.0, SOLID principles, and clean architecture.</p>
+      <p>On top of that, I bring hands-on <strong>Cloud &amp; DevOps</strong> skills — AWS, Azure, Docker, CI/CD with GitHub Actions — so I'm not handing my code off to someone else to deploy. I build it, ship it, and keep it running.</p>
+      <p>At CSCBeyond, I improved API response time by <strong>35%</strong> through LINQ optimization, cut database load by <strong>20%</strong> through caching, and reduced request errors by <strong>15%</strong> during internal testing — the kind of measurable backend impact I aim for on every project.</p>
       <div class="highlight-box">
-        <span class="hl-key">skills</span> = {<br>
-        &nbsp;&nbsp;<span class="hl-key">cloud</span>: [<span class="hl-str">"AWS"</span>, <span class="hl-str">"Azure"</span>],<br>
-        &nbsp;&nbsp;<span class="hl-key">devops</span>: [<span class="hl-str">"Docker"</span>, <span class="hl-str">"GitHub Actions"</span>],<br>
-        &nbsp;&nbsp;<span class="hl-key">backend</span>: [<span class="hl-str">"ASP.NET Core"</span>, <span class="hl-str">"C#"</span>],<br>
-        &nbsp;&nbsp;<span class="hl-key">mobile</span>: <span class="hl-val">true</span>,<br>
-        &nbsp;&nbsp;<span class="hl-key">available</span>: <span class="hl-val">true</span><br>
-        }
+        <span class="hl-comment">// primary identity</span><br>
+        <span class="hl-key">role</span> = <span class="hl-str">"Full Stack .NET Developer"</span><br><br>
+        <span class="hl-key">core</span> = [<span class="hl-str">"ASP.NET Core"</span>, <span class="hl-str">"C#"</span>, <span class="hl-str">"SQL Server"</span>, <span class="hl-str">"EF Core"</span>, <span class="hl-str">"LINQ"</span>, <span class="hl-str">"REST APIs"</span>],<br>
+        <span class="hl-key">realTimeAndMessaging</span> = [<span class="hl-str">"SignalR"</span>, <span class="hl-str">"RabbitMQ"</span>, <span class="hl-str">"Worker Queues"</span>],<br>
+        <span class="hl-key">architecture</span> = [<span class="hl-str">"Middleware"</span>, <span class="hl-str">"Dependency Injection"</span>, <span class="hl-str">"Microservices"</span>, <span class="hl-str">"SOLID"</span>, <span class="hl-str">"Clean Architecture"</span>, <span class="hl-str">"Design Patterns"</span>],<br>
+        <span class="hl-key">frontend</span> = [<span class="hl-str">"React"</span>, <span class="hl-str">"Next.js"</span>, <span class="hl-str">"React Native"</span>],<br>
+        <span class="hl-comment">// secondary / supporting skills</span><br>
+        <span class="hl-key">cloudAndDevOps</span> = [<span class="hl-str">"AWS"</span>, <span class="hl-str">"Azure"</span>, <span class="hl-str">"Docker"</span>, <span class="hl-str">"CI/CD"</span>, <span class="hl-str">"GitHub Actions"</span>],<br>
+        <span class="hl-key">available</span> = <span class="hl-val">true</span>
       </div>
     </div>
   </div>
@@ -875,9 +946,9 @@ footer{
 
 <!-- FOOTER -->
 <footer>
-  <a href="#home" class="foot-logo">BAT<span class="foot-orng">.</span>DEV</a>
-  <span class="foot-copy">© 2025 <span class="foot-orng">Bilal Al-Titi</span> — All rights reserved</span>
-  <span class="foot-copy">Cloud &amp; DevOps Engineer</span>
+  <a href="#home" class="foot-logo">NET<span class="foot-orng">.</span>CLOUD</a>
+  <span class="foot-copy">© <span id="copyYear"></span> <span class="foot-orng">Bilal Al-Titi</span> — All rights reserved</span>
+  <span class="foot-copy">Full Stack .NET · Cloud &amp; DevOps</span>
 </footer>
 
 <script>
@@ -918,26 +989,31 @@ const ro=new IntersectionObserver(entries=>{
 document.querySelectorAll('.reveal').forEach(r=>ro.observe(r));
 
 // Terminal animation
-const lines=['l1','l2','l3','l4','l5','l6','l7','l8','l9','l10'];
+const lines=['l1','l2','l3','l4','l5','l6','l7','l8','l9','l10','l11','l12'];
 let li=0;
 function showNextLine(){
-  if(li<lines.length){document.getElementById(lines[li]).classList.add('show');li++;setTimeout(showNextLine,li<=2?600:li<=7?250:400)}
+  if(li<lines.length){document.getElementById(lines[li]).classList.add('show');li++;setTimeout(showNextLine,li<=2?600:li<=9?250:400)}
 }
 setTimeout(showNextLine,800);
 
 // KPI counters
 const kpis=document.querySelectorAll('.kpi-num');
+const kpiSuffix={'6':'+','3':'+','35':'%','20':'%'};
 const ko=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
-      const el=e.target,target=+el.dataset.target;
+      const el=e.target,target=+el.dataset.target,suffix=kpiSuffix[el.dataset.target]||'';
       let cur2=0;const step=target/40;
-      const t=setInterval(()=>{cur2=Math.min(cur2+step,target);el.textContent=Math.floor(cur2)+(target===100?'%':'+');if(cur2>=target)clearInterval(t)},30);
+      const t=setInterval(()=>{cur2=Math.min(cur2+step,target);el.textContent=Math.floor(cur2)+suffix;if(cur2>=target)clearInterval(t)},30);
       ko.unobserve(el);
     }
   });
 },{threshold:0.5});
 kpis.forEach(k=>ko.observe(k));
+
+// Footer year
+const copyYear=document.getElementById('copyYear');
+if(copyYear)copyYear.textContent=new Date().getFullYear();
 </script>
 </body>
 </html>
